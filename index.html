@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anand Dental Care & Implant Centre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8935A;
+    --gold-light: #D4AF7A;
+    --gold-pale: #F5EDD8;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E40;
+    --teal: #2A6B6B;
+    --teal-light: #3D8B8B;
+    --white: #FFFFFF;
+    --off-white: #FAFAF8;
+    --cream: #F8F4EE;
+    --text-dark: #1A1A1A;
+    --text-mid: #444;
+    --text-light: #888;
+    --red-soft: #C0392B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* ── CURSOR ── */
+  *, *::before, *::after { cursor: none !important; }
+  #cursor { position: fixed; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s, background 0.2s; }
+  #cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s ease; opacity: 0.6; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5vw; height: 72px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(184,147,90,0.15); }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo-icon { width: 40px; height: 40px; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; letter-spacing: 0.04em; color: var(--navy); line-height: 1.2; }
+  .nav-logo-text span { display: block; font-size: 10px; font-family: 'Jost', sans-serif; letter-spacing: 0.18em; font-weight: 300; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--navy); color: var(--white) !important; padding: 10px 24px !important; border-radius: 2px; letter-spacing: 0.12em !important; }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; background: var(--off-white); }
+  .hero-left { padding: 160px 5vw 80px 10vw; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+  .hero-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 5.5vw, 80px); font-weight: 300; line-height: 1.08; color: var(--navy); margin-bottom: 8px; }
+  .hero-h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 14px; letter-spacing: 0.1em; color: var(--text-light); font-weight: 300; margin-bottom: 32px; text-transform: uppercase; }
+  .hero-desc { font-size: 16px; line-height: 1.8; color: var(--text-mid); max-width: 420px; margin-bottom: 48px; font-weight: 300; }
+  .hero-btns { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--navy); color: var(--white); padding: 16px 40px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.3s; border: none; font-family: 'Jost', sans-serif; font-weight: 400; }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--navy); padding: 16px 40px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border-radius: 2px; border: 1px solid var(--navy); transition: all 0.3s; font-family: 'Jost', sans-serif; font-weight: 400; }
+  .btn-outline:hover { background: var(--navy); color: var(--white); }
+  .hero-stats { display: flex; gap: 48px; margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.07); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--navy); line-height: 1; }
+  .stat-label { font-size: 11px; letter-spacing: 0.14em; color: var(--text-light); text-transform: uppercase; margin-top: 6px; }
+  .hero-right { position: relative; overflow: hidden; background: var(--white); }
+  .hero-right-inner { position: absolute; inset: 0; }
+  .hero-slides { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
+  .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s cubic-bezier(0.25, 1, 0.5, 1); transform: scale(1); }
+  .hero-slide.active { opacity: 1; transform: scale(1.05); }
+  .hero-tooth-svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.12; z-index: 2; pointer-events: none; }
+  .hero-gold-line { position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, transparent, var(--gold), transparent); z-index: 3; }
+  .hero-floating { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); background: rgba(13,27,42,0.65); border: 1px solid rgba(184,147,90,0.4); border-radius: 4px; padding: 20px 32px; text-align: center; backdrop-filter: blur(12px); white-space: nowrap; z-index: 3; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transition: all 0.3s; }
+  .hero-floating:hover { background: rgba(13,27,42,0.8); border-color: var(--gold-light); transform: translateX(-50%) translateY(-2px); }
+  .hero-floating-rating { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--white); }
+  .hero-floating-stars { color: var(--gold); letter-spacing: 2px; margin: 4px 0; }
+  .hero-floating-text { font-size: 11px; letter-spacing: 0.14em; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+  .hero-badge { position: absolute; top: 80px; right: 60px; width: 100px; height: 100px; border-radius: 50%; border: 1px solid rgba(184,147,90,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 3; background: rgba(13,27,42,0.4); backdrop-filter: blur(8px); transition: all 0.3s; }
+  .hero-badge:hover { border-color: var(--gold-light); transform: rotate(15deg) scale(1.05); }
+  .hero-badge-text { font-size: 9px; letter-spacing: 0.12em; color: rgba(255,255,255,0.7); text-transform: uppercase; text-align: center; line-height: 1.6; }
+  .hero-badge-icon { color: var(--gold); font-size: 22px; margin-bottom: 6px; }
+
+  /* ── MARQUEE ── */
+  .marquee-bar { background: var(--navy); padding: 14px 0; overflow: hidden; }
+  .marquee-track { display: flex; gap: 0; animation: marquee 25s linear infinite; white-space: nowrap; }
+  .marquee-item { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 0 40px; border-right: 1px solid rgba(255,255,255,0.1); }
+  .marquee-item span { color: var(--gold); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── ABOUT DR ── */
+  #about { padding: 120px 10vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: var(--white); }
+  .about-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 20px; }
+  .about-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.12; color: var(--navy); margin-bottom: 28px; }
+  .about-h2 em { font-style: italic; }
+  .about-body { font-size: 15px; line-height: 1.9; color: var(--text-mid); font-weight: 300; margin-bottom: 32px; }
+  .about-creds { display: flex; flex-direction: column; gap: 14px; }
+  .about-cred { display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px; border-left: 2px solid var(--gold); background: var(--cream); border-radius: 0 4px 4px 0; }
+  .about-cred-icon { color: var(--gold); font-size: 18px; margin-top: 1px; flex-shrink: 0; }
+  .about-cred-text { font-size: 13px; line-height: 1.6; color: var(--text-mid); font-weight: 400; }
+  .about-cred-text strong { display: block; font-weight: 500; color: var(--navy); font-size: 14px; margin-bottom: 2px; }
+  .about-card { background: var(--navy); border-radius: 6px; overflow: hidden; position: relative; }
+  .about-card-inner { padding: 52px 44px; }
+  .about-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 8px; }
+  .about-card h3 em { color: var(--gold-light); font-style: italic; }
+  .about-card-title { font-size: 11px; letter-spacing: 0.2em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 32px; }
+  .about-card-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .about-card-list li { font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 300; display: flex; align-items: center; gap: 12px; }
+  .about-card-list li::before { content: ''; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+  .about-card-deco { position: absolute; bottom: 0; right: 0; opacity: 0.06; }
+
+  /* ── SERVICES ── */
+  #services { padding: 120px 10vw; background: var(--cream); }
+  .section-header { text-align: center; margin-bottom: 72px; }
+  .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+  .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--navy); }
+  .section-h2 em { font-style: italic; color: var(--teal); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; }
+  .service-card { background: var(--white); padding: 44px 36px; position: relative; overflow: hidden; transition: all 0.4s; }
+  .service-card:hover { background: var(--navy); }
+  .service-card:hover .service-name, .service-card:hover .service-desc { color: var(--white); }
+  .service-card:hover .service-icon { color: var(--gold-light); }
+  .service-card:hover .service-num { color: rgba(255,255,255,0.08); }
+  .service-num { position: absolute; top: 28px; right: 28px; font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: rgba(0,0,0,0.04); line-height: 1; transition: color 0.4s; }
+  .service-icon { font-size: 28px; color: var(--teal); margin-bottom: 24px; transition: color 0.4s; display: block; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--navy); margin-bottom: 12px; transition: color 0.4s; }
+  .service-desc { font-size: 13px; line-height: 1.8; color: var(--text-light); font-weight: 300; transition: color 0.4s; }
+
+  /* ── HEALTH TOOLS ── */
+  #tools { padding: 120px 10vw; background: var(--white); }
+  .tools-intro { max-width: 600px; margin: 0 auto 72px; text-align: center; }
+  .tools-intro p { font-size: 15px; line-height: 1.8; color: var(--text-mid); font-weight: 300; }
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .tool-card { border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; transition: all 0.3s; background: var(--white); }
+  .tool-card:hover { border-color: var(--gold); box-shadow: 0 12px 40px rgba(184,147,90,0.1); transform: translateY(-4px); }
+  .tool-header { padding: 28px 28px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: 16px; }
+  .tool-icon-wrap { width: 48px; height: 48px; border-radius: 50%; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--teal); flex-shrink: 0; }
+  .tool-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--navy); }
+  .tool-body { padding: 24px 28px 28px; }
+  .tool-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .tool-label { font-size: 12px; letter-spacing: 0.08em; color: var(--text-light); text-transform: uppercase; }
+  .tool-val { font-size: 13px; font-weight: 500; color: var(--navy); min-width: 48px; text-align: right; }
+  input[type=range] { -webkit-appearance: none; width: 100%; height: 3px; background: #e8e4dc; border-radius: 2px; outline: none; margin-bottom: 20px; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 2px solid white; box-shadow: 0 0 0 2px rgba(184,147,90,0.25); }
+  .tool-result { border-radius: 6px; padding: 16px 20px; text-align: center; }
+  .tool-result-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; }
+  .tool-result-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; opacity: 0.7; }
+  .tool-result.green { background: #EDF7ED; color: #2E7D32; }
+  .tool-result.amber { background: #FFF8E1; color: #F57F17; }
+  .tool-result.red { background: #FEEBEE; color: #C62828; }
+  .tool-result.blue { background: #E3F2FD; color: #1565C0; }
+  .tool-result.teal { background: #E0F2F1; color: #00695C; }
+  .tool-checklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .check-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-mid); cursor: pointer; }
+  .check-item input[type=checkbox] { accent-color: var(--teal); width: 15px; height: 15px; }
+  .risk-bar { height: 8px; border-radius: 4px; background: #eee; margin-bottom: 6px; overflow: hidden; }
+  .risk-fill { height: 100%; border-radius: 4px; background: var(--teal); transition: width 0.5s ease; }
+  .tool-select { width: 100%; padding: 10px 12px; border: 1px solid #e0dbd2; border-radius: 4px; font-family: 'Jost', sans-serif; font-size: 13px; color: var(--text-dark); background: white; outline: none; margin-bottom: 12px; }
+  .brush-visual { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; margin-bottom: 16px; }
+  .brush-seg { height: 28px; border-radius: 4px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: #999; transition: all 0.3s; }
+  .brush-seg.done { background: var(--teal); color: white; }
+  .timer-circle { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #eee; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 16px; position: relative; }
+  .timer-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--navy); }
+  .timer-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); }
+  .timer-btn { background: var(--teal); color: white; border: none; padding: 10px 28px; border-radius: 3px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Jost', sans-serif; cursor: pointer; width: 100%; transition: background 0.2s; }
+  .timer-btn:hover { background: var(--teal-light); }
+  .pain-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-bottom: 16px; }
+  .pain-dot { height: 44px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .pain-dot:hover { transform: scale(1.05); }
+  .pain-dot.active { border-color: var(--navy); transform: scale(1.05); }
+
+  /* ── TESTIMONIALS ── */
+  #reviews { padding: 120px 10vw; background: var(--navy); }
+  #reviews .section-h2 { color: var(--white); }
+  #reviews .section-label { color: var(--gold-light); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 60px; }
+  .review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 36px 32px; }
+  .review-stars { color: var(--gold); letter-spacing: 2px; font-size: 13px; margin-bottom: 20px; }
+  .review-text { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.65); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300; margin-bottom: 24px; }
+  .review-author { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 10px; }
+  .review-author::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+
+  /* ── CONTACT ── */
+  #contact { padding: 120px 10vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info { }
+  .contact-detail { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid rgba(0,0,0,0.07); }
+  .contact-detail:last-child { border-bottom: none; }
+  .contact-icon { width: 44px; height: 44px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-light); font-size: 18px; flex-shrink: 0; }
+  .contact-detail-text strong { display: block; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); font-weight: 500; margin-bottom: 4px; }
+  .contact-detail-text p { font-size: 14px; line-height: 1.7; color: var(--text-mid); font-weight: 300; }
+  .hours-table { width: 100%; font-size: 13px; }
+  .hours-table tr td { padding: 4px 0; color: var(--text-mid); }
+  .hours-table tr td:last-child { text-align: right; font-weight: 500; color: var(--navy); }
+  .contact-form-wrap { background: var(--white); border-radius: 8px; padding: 44px; box-shadow: 0 2px 40px rgba(0,0,0,0.05); }
+  .form-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--navy); margin-bottom: 8px; }
+  .form-sub { font-size: 13px; color: var(--text-light); margin-bottom: 32px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid #e0dbd2; border-radius: 4px; font-family: 'Jost', sans-serif; font-size: 14px; color: var(--text-dark); background: white; outline: none; transition: border-color 0.2s; resize: none; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-submit { background: var(--navy); color: white; border: none; width: 100%; padding: 16px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; border-radius: 3px; cursor: pointer; transition: background 0.3s; margin-top: 8px; }
+  .form-submit:hover { background: var(--gold); }
+  .form-success { display: none; background: #EDF7ED; border: 1px solid #A5D6A7; border-radius: 4px; padding: 16px; text-align: center; font-size: 14px; color: #2E7D32; margin-top: 12px; }
+
+  /* ── MAP STRIP ── */
+  #map-strip { position: relative; overflow: hidden; padding: 80px 10vw; display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 220px; background: var(--white); }
+  .map-strip-bg { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 0; filter: grayscale(0.6) opacity(0.55); pointer-events: none; transition: opacity 0.4s ease; }
+  #map-strip::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 100%); z-index: 1; pointer-events: none; transition: background 0.4s ease; }
+  #map-strip:hover .map-strip-bg { opacity: 0.65; }
+  #map-strip:hover::before { background: linear-gradient(90deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 100%); }
+  .map-strip-text, .map-strip-link { position: relative; z-index: 2; }
+  .map-strip-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--navy); margin-bottom: 6px; }
+  .map-strip-text p { font-size: 13px; color: var(--text-mid); }
+  .map-strip-link { background: var(--gold); color: white; padding: 14px 36px; text-decoration: none; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 2px; white-space: nowrap; transition: background 0.3s; }
+  .map-strip-link:hover { background: var(--gold-light); }
+
+  /* ── TREATMENT TIMELINE ── */
+  #timeline { padding: 140px 10vw; background: linear-gradient(135deg, var(--white) 0%, rgba(245,237,216,0.4) 100%); position: relative; overflow: hidden; }
+  #timeline::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(184,147,90,0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+  #timeline::after { content: ''; position: absolute; bottom: 0; left: 0; width: 250px; height: 250px; background: radial-gradient(circle, rgba(42,107,107,0.05) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+  .timeline-header { text-align: center; margin-bottom: 80px; position: relative; z-index: 1; }
+  .timeline-container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+  .timeline-line { position: absolute; top: 80px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%); transform: translateY(-50%); box-shadow: 0 2px 8px rgba(184,147,90,0.2); }
+  .timeline-steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px; position: relative; z-index: 2; }
+  .timeline-step { text-align: center; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+  .timeline-step:hover { transform: translateY(-12px); }
+  .timeline-dot { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--white) 0%, rgba(255,255,255,0.95) 100%); border: 4px solid var(--gold); margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; font-size: 32px; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 12px 32px rgba(184,147,90,0.15), inset 0 1px 2px rgba(255,255,255,0.8); position: relative; }
+  .timeline-step:hover .timeline-dot { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); transform: scale(1.15) rotateY(360deg); box-shadow: 0 20px 48px rgba(184,147,90,0.3), inset 0 1px 2px rgba(255,255,255,0.8); border-color: var(--gold-light); }
+  .timeline-dot::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--gold); opacity: 0; animation: pulse-ring 1.5s infinite; }
+  @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+  .timeline-label { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--navy); margin-bottom: 12px; letter-spacing: 0.02em; }
+  .timeline-desc { font-size: 13px; color: var(--text-mid); line-height: 1.8; letter-spacing: 0.03em; font-weight: 300; }
+  .timeline-step.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .timeline-step.fade-up.visible { opacity: 1; transform: translateY(0); }
+  
+  /* ── FAQ SECTION ── */
+  #faqs { padding: 120px 10vw; background: var(--cream); }
+  .faq-container { max-width: 800px; margin: 0 auto; }
+  .faq-item { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; margin-bottom: 16px; overflow: hidden; transition: all 0.3s; }
+  .faq-item:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(184,147,90,0.1); }
+  .faq-question { padding: 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--white); font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--navy); transition: all 0.3s; }
+  .faq-question:hover { background: var(--cream); color: var(--gold); }
+  .faq-toggle { display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; color: var(--gold); font-size: 20px; transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
+  .faq-item.active .faq-toggle { transform: rotate(180deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; background: var(--cream); }
+  .faq-item.active .faq-answer { max-height: 500px; padding: 0 24px 24px; }
+  .faq-answer-text { font-size: 14px; line-height: 1.8; color: var(--text-mid); }
+  .faq-answer-list { list-style: none; margin-top: 12px; }
+  .faq-answer-list li { padding-left: 20px; margin-bottom: 8px; position: relative; }
+  .faq-answer-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 600; }
+  
+  /* ── PAYMENT OPTIONS ── */
+  #payments { padding: 60px 10vw; background: var(--navy); text-align: center; }
+  .payment-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--white); margin-bottom: 24px; }
+  .payment-options { display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+  .payment-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(184,147,90,0.3); border-radius: 8px; padding: 16px 24px; display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+  .payment-badge:hover { background: rgba(184,147,90,0.15); border-color: var(--gold-light); transform: translateY(-2px); }
+  .payment-icon { font-size: 24px; }
+  .payment-text { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 400; }
+  .payment-badge:hover .payment-text { color: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer { background: #080E14; padding: 60px 10vw 32px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; color: white; }
+  .footer-logo span { display: block; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-top: 4px; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 28px; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(255,255,255,0.2); flex-wrap: wrap; gap: 12px; }
+  .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+
+
+  /* ── GALLERY CAROUSEL ── */
+  #gallery-carousel { padding: 120px 10vw; background: var(--off-white); position: relative; border-bottom: 1px solid rgba(184,147,90,0.15); }
+  .gallery-slider-container { max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid rgba(184,147,90,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.08); background: var(--white); }
+  .gallery-slider { position: relative; height: 500px; width: 100%; overflow: hidden; }
+  .gallery-slide-item { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; flex-direction: column; justify-content: flex-end; }
+  .gallery-slide-item.active { opacity: 1; }
+  .gallery-slide-item img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-slide-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(13,27,42,0.85) 0%, rgba(13,27,42,0) 100%); color: var(--white); padding: 32px 40px; font-size: 15px; font-weight: 300; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; }
+  .gallery-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border: none; font-size: 18px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; color: var(--navy); border: 1px solid rgba(184,147,90,0.2); transition: all 0.3s; }
+  .gallery-control:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .gallery-control.prev { left: 24px; }
+  .gallery-control.next { right: 24px; }
+  .gallery-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
+  .gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; }
+  .gallery-dot.active { background: var(--gold); transform: scale(1.3); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── SCROLL TOP ── */
+  #scroll-top { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 90; opacity: 0; transition: opacity 0.3s; cursor: pointer; border: none; }
+  #scroll-top.show { opacity: 1; }
+  #scroll-top svg { color: white; width: 18px; height: 18px; stroke: white; stroke-width: 2; fill: none; }
+
+  @media (max-width: 900px) {
+    #hero, #about, #contact { grid-template-columns: 1fr; }
+    .hero-right { min-height: 320px; display: none; }
+    .hero-left { padding: 140px 6vw 80px; }
+    .services-grid, .tools-grid, .reviews-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 4vw; }
+    .nav-links { display: none; }
+    #about, #contact { padding: 80px 6vw; }
+    #services, #tools, #reviews { padding: 80px 6vw; }
+    #timeline, #faqs, #payments { padding: 80px 6vw; }
+    .timeline-steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .timeline-line { display: none; }
+    #map-strip { flex-direction: column; padding: 50px 6vw; text-align: center; }
+    #map-strip::before { background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 100%); }
+    #gallery-carousel { padding: 80px 6vw; }
+    .gallery-slider { height: 320px; }
+    .gallery-slide-caption { padding: 20px 24px; font-size: 12px; }
+    .gallery-control { width: 36px; height: 36px; font-size: 14px; }
+    .gallery-control.prev { left: 12px; }
+    .gallery-control.next { right: 12px; }
+    .payment-options { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="19" stroke="#B8935A" stroke-width="1"/>
+      <path d="M14 28C14 28 12 16 16 12C18 10 20 11 20 11C20 11 22 10 24 12C28 16 26 28 26 28" stroke="#0D1B2A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M17 11C17 11 15.5 14 16.5 17" stroke="#B8935A" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      Anand Dental Care
+      <span>& Implant Centre · Est. Surat</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#tools">Health Tools</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact" class="nav-cta">Book Appointment</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-left fade-up">
+    <div class="hero-tag">Surat's Premier Implant & Root Canal Clinic</div>
+    <h1 class="hero-h1">Your Smile<br>Is Our <em>Finest</em><br>Craft</h1>
+    <p class="hero-sub">Dr. Anandsinh K. Rana · MDS Specialist</p>
+    <p class="hero-desc">Experience world-class dental care delivered with compassion, precision, and the artistry of a Gold Medalist specialist — right in the heart of Adajan, Surat.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book a Consultation</a>
+      <a href="#services" class="btn-outline">Explore Treatments</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Patient Rating</div>
+      </div>
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">Gold</div>
+        <div class="stat-label">Medalist · Civil Hosp.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-slides">
+      <img class="hero-slide active" src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80" alt="Modern dental clinic treatment room">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1595502124338-950db27ea1c7?auto=format&fit=crop&w=1200&q=80" alt="Healthy confident smile">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1200&q=80" alt="Professional dentist during checkup">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=1200&q=80" alt="Advanced 3D dental tooth model">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80" alt="Beautiful white teeth smile">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80" alt="Expert dental consultation">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1447482012126-fd97f294de8d?auto=format&fit=crop&w=1200&q=80" alt="Sterilized high-precision dental tools">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80" alt="Happy male patient smile">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Clean modern clinic office reception">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=1200&q=80" alt="Morning dental health routine">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80" alt="Advanced digital diagnostic scan">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=1200&q=80" alt="Happy healthy family smiles">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1464998857633-50e59fbf2fe6?auto=format&fit=crop&w=1200&q=80" alt="Comfortable pediatric dental checkup">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80" alt="Cosmetic dentistry veneer design">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80" alt="Patient showing teeth clinic">
+    </div>
+    <div class="hero-gold-line"></div>
+    <svg class="hero-tooth-svg" width="360" height="360" viewBox="0 0 100 100" fill="none">
+      <path d="M30 80C30 80 20 45 25 25C28 15 35 12 40 13C43 14 46 16 50 16C54 16 57 14 60 13C65 12 72 15 75 25C80 45 70 80 70 80" stroke="var(--navy)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="hero-badge">
+      <div class="hero-badge-icon">✦</div>
+      <div class="hero-badge-text">Gold<br>Medalist<br>MDS</div>
+    </div>
+    <div class="hero-floating">
+      <div class="hero-floating-rating">4.9</div>
+      <div class="hero-floating-stars">★★★★★</div>
+      <div class="hero-floating-text">Google Reviews · Adajan</div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <div class="marquee-item">Root Canal Treatment <span>✦</span></div>
+    <div class="marquee-item">Dental Implants <span>✦</span></div>
+    <div class="marquee-item">Cosmetic Dentistry <span>✦</span></div>
+    <div class="marquee-item">Teeth Whitening <span>✦</span></div>
+    <div class="marquee-item">Invisalign &amp; Braces <span>✦</span></div>
+    <div class="marquee-item">Crowns &amp; Bridges <span>✦</span></div>
+    <div class="marquee-item">Pediatric Dentistry <span>✦</span></div>
+    <div class="marquee-item">Emergency Dental Care <span>✦</span></div>
+    <div class="marquee-item">Root Canal Treatment <span>✦</span></div>
+    <div class="marquee-item">Dental Implants <span>✦</span></div>
+    <div class="marquee-item">Cosmetic Dentistry <span>✦</span></div>
+    <div class="marquee-item">Teeth Whitening <span>✦</span></div>
+    <div class="marquee-item">Invisalign &amp; Braces <span>✦</span></div>
+    <div class="marquee-item">Crowns &amp; Bridges <span>✦</span></div>
+    <div class="marquee-item">Pediatric Dentistry <span>✦</span></div>
+    <div class="marquee-item">Emergency Dental Care <span>✦</span></div>
+  </div>
+</div>
+
+<!-- About -->
+<section id="about">
+  <div class="fade-up">
+    <div class="about-label">Meet Your Specialist</div>
+    <h2 class="about-h2">Dr. Anandsinh<br><em>K. Rana</em></h2>
+    <p class="about-body">A distinguished dental specialist and Gold Medalist from Civil Hospital Ahmedabad, Dr. Rana brings unparalleled expertise in Root Canal Treatment and Implantology to every patient. His philosophy: every smile deserves the finest care — delivered with warmth, precision, and artistry.</p>
+    <div class="about-creds">
+      <div class="about-cred">
+        <div class="about-cred-icon">🏅</div>
+        <div class="about-cred-text">
+          <strong>Gold Medalist · MDS</strong>
+          Civil Hospital, Ahmedabad — top distinction in postgraduate dentistry
+        </div>
+      </div>
+      <div class="about-cred">
+        <div class="about-cred-icon">🦷</div>
+        <div class="about-cred-text">
+          <strong>Root Canal Specialist</strong>
+          Advanced endodontic training with precision single-visit RCT techniques
+        </div>
+      </div>
+      <div class="about-cred">
+        <div class="about-cred-icon">🔬</div>
+        <div class="about-cred-text">
+          <strong>Implantology Expert</strong>
+          Certified in latest implant systems — restoring smiles with life-like results
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fade-up">
+    <div class="about-card">
+      <div class="about-card-inner">
+        <h3>Anand<br><em>Dental Care</em></h3>
+        <p class="about-card-title">& Implant Centre · Surat</p>
+        <ul class="about-card-list">
+          <li>State-of-the-art digital X-ray &amp; imaging</li>
+          <li>Painless anaesthesia techniques</li>
+          <li>Sterilization &amp; infection control protocols</li>
+          <li>Wheelchair-accessible facility</li>
+          <li>NFC &amp; cashless payments accepted</li>
+          <li>Free street parking available</li>
+          <li>Rated 4.9 ★ on Google Maps</li>
+          <li>Mon – Sat · 10 AM–1 PM &amp; 4:30–8 PM</li>
+        </ul>
+      </div>
+      <svg class="about-card-deco" width="200" height="200" viewBox="0 0 100 100" fill="none">
+        <path d="M30 80C30 80 20 45 25 25C28 15 35 12 40 13C43 14 46 16 50 16C54 16 57 14 60 13C65 12 72 15 75 25C80 45 70 80 70 80" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Treatment Timeline -->
+<section id="timeline">
+  <div class="timeline-header fade-up">
+    <span class="section-label">Your Treatment Journey</span>
+    <h2 class="section-h2">Step-by-Step Path to Your <em>Perfect Smile</em></h2>
+  </div>
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+    <div class="timeline-steps">
+      <div class="timeline-step fade-up">
+        <div class="timeline-dot">📅</div>
+        <h3 class="timeline-label">Book</h3>
+        <p class="timeline-desc">Schedule your appointment online or call us at +91 99049 75842</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="timeline-dot">💬</div>
+        <h3 class="timeline-label">Consultation</h3>
+        <p class="timeline-desc">Meet Dr. Rana for a thorough examination and treatment discussion</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="timeline-dot">📸</div>
+        <h3 class="timeline-label">X-Ray</h3>
+        <p class="timeline-desc">Advanced digital imaging for precise diagnosis</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="timeline-dot">⚕️</div>
+        <h3 class="timeline-label">Treatment</h3>
+        <p class="timeline-desc">Professional care with painless anesthesia techniques</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="timeline-dot">🔄</div>
+        <h3 class="timeline-label">Recovery</h3>
+        <p class="timeline-desc">Post-care instructions and follow-up check-ins</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="timeline-dot">😊</div>
+        <h3 class="timeline-label">Smile!</h3>
+        <p class="timeline-desc">Enjoy your transformed, healthy smile</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-header fade-up">
+    <span class="section-label">What We Offer</span>
+    <h2 class="section-h2">Treatments for Every <em>Smile</em></h2>
+  </div>
+  <div class="services-grid fade-up">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <span class="service-icon">🦷</span>
+      <h3 class="service-name">Root Canal Treatment</h3>
+      <p class="service-desc">Single-visit precision endodontics. Painless, efficient, and performed by a Gold Medalist RCT specialist.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <span class="service-icon">🔩</span>
+      <h3 class="service-name">Dental Implants</h3>
+      <p class="service-desc">Life-like titanium implants that look, feel, and function like natural teeth — a permanent smile solution.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <span class="service-icon">✨</span>
+      <h3 class="service-name">Teeth Whitening</h3>
+      <p class="service-desc">Professional-grade whitening treatments for a brilliantly bright smile — up to 8 shades lighter in one visit.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <span class="service-icon">👑</span>
+      <h3 class="service-name">Crowns & Bridges</h3>
+      <p class="service-desc">Ceramic and zirconia restorations crafted to perfection — restoring strength and natural aesthetics seamlessly.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <span class="service-icon">😁</span>
+      <h3 class="service-name">Smile Makeover</h3>
+      <p class="service-desc">Comprehensive cosmetic treatment plans — veneers, bonding, contouring — designed around your unique facial features.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <span class="service-icon">🧒</span>
+      <h3 class="service-name">Pediatric Dentistry</h3>
+      <p class="service-desc">Gentle, child-friendly dental care in a warm environment — building healthy habits from the very first visit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Health Tools -->
+<section id="tools">
+  <div class="section-header fade-up">
+    <span class="section-label">Interactive Health Tools</span>
+    <h2 class="section-h2">Know Your Dental <em>Health</em></h2>
+  </div>
+  <div class="tools-intro fade-up">
+    <p>Use these smart tools to assess your oral health, understand your risk factors, and prepare for your consultation with Dr. Rana.</p>
+  </div>
+
+  <div class="tools-grid">
+
+    <!-- Tool 1: BMI-style Oral Health Score -->
+    <div class="tool-card fade-up">
+      <div class="tool-header">
+        <div class="tool-icon-wrap">🦷</div>
+        <div class="tool-title">Oral Health Score</div>
+      </div>
+      <div class="tool-body">
+        <div class="tool-row"><span class="tool-label">Brushing / day</span><span class="tool-val" id="brush-val">2×</span></div>
+        <input type="range" min="0" max="4" value="2" id="brush-slider">
+        <div class="tool-row"><span class="tool-label">Flossing / week</span><span class="tool-val" id="floss-val">3×</span></div>
+        <input type="range" min="0" max="7" value="3" id="floss-slider">
+        <div class="tool-row"><span class="tool-label">Last dental visit</span><span class="tool-val" id="visit-val">1 yr</span></div>
+        <input type="range" min="0" max="5" value="1" id="visit-slider">
+        <div id="oral-result" class="tool-result teal">
+          <div class="tool-result-num" id="oral-score">72</div>
+          <div class="tool-result-label">Oral Health Score</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool 2: Cavity Risk Assessment -->
+    <div class="tool-card fade-up">
+      <div class="tool-header">
+        <div class="tool-icon-wrap">⚠️</div>
+        <div class="tool-title">Cavity Risk Check</div>
+      </div>
+      <div class="tool-body">
+        <div class="checklist" id="cavity-list">
+          <div class="check-item"><input type="checkbox" id="c1"> <label for="c1">Frequent sugary drinks / sweets</label></div>
+          <div class="check-item"><input type="checkbox" id="c2"> <label for="c2">Dry mouth or reduced saliva</label></div>
+          <div class="check-item"><input type="checkbox" id="c3"> <label for="c3">Skip brushing at night</label></div>
+          <div class="check-item"><input type="checkbox" id="c4"> <label for="c4">Visible white spots on teeth</label></div>
+          <div class="check-item"><input type="checkbox" id="c5"> <label for="c5">Tooth sensitivity to sweets/cold</label></div>
+          <div class="check-item"><input type="checkbox" id="c6"> <label for="c6">No fluoride toothpaste use</label></div>
+        </div>
+        <div class="risk-bar"><div class="risk-fill" id="cavity-bar" style="width:0%;background:var(--teal);"></div></div>
+        <div id="cavity-result" class="tool-result green" style="margin-top:12px;">
+          <div class="tool-result-num" id="cavity-text">Low Risk</div>
+          <div class="tool-result-label">Cavity Risk Level</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool 3: Brushing Timer -->
+    <div class="tool-card fade-up">
+      <div class="tool-header">
+        <div class="tool-icon-wrap">⏱️</div>
+        <div class="tool-title">Smart Brush Timer</div>
+      </div>
+      <div class="tool-body">
+        <div class="brush-visual" id="brush-segs">
+          <div class="brush-seg" id="seg-0">Upper<br>Front</div>
+          <div class="brush-seg" id="seg-1">Upper<br>Back</div>
+          <div class="brush-seg" id="seg-2">Lower<br>Front</div>
+          <div class="brush-seg" id="seg-3">Lower<br>Back</div>
+        </div>
+        <div class="timer-circle" id="timer-ring">
+          <div class="timer-num" id="timer-display">2:00</div>
+          <div class="timer-label" id="timer-zone">Ready</div>
+        </div>
+        <button class="timer-btn" id="timer-btn" onclick="toggleTimer()">▶ Start Brushing</button>
+      </div>
+    </div>
+
+    <!-- Tool 4: Gum Health Checker -->
+    <div class="tool-card fade-up">
+      <div class="tool-header">
+        <div class="tool-icon-wrap">🩺</div>
+        <div class="tool-title">Gum Health Check</div>
+      </div>
+      <div class="tool-body">
+        <div class="checklist">
+          <div class="check-item"><input type="checkbox" id="g1" onchange="calcGum()"> <label for="g1">Gums bleed when brushing</label></div>
+          <div class="check-item"><input type="checkbox" id="g2" onchange="calcGum()"> <label for="g2">Persistent bad breath</label></div>
+          <div class="check-item"><input type="checkbox" id="g3" onchange="calcGum()"> <label for="g3">Gums look red or swollen</label></div>
+          <div class="check-item"><input type="checkbox" id="g4" onchange="calcGum()"> <label for="g4">Teeth feel loose or shifting</label></div>
+          <div class="check-item"><input type="checkbox" id="g5" onchange="calcGum()"> <label for="g5">Receding gum line visible</label></div>
+        </div>
+        <div id="gum-result" class="tool-result green" style="margin-top:16px;">
+          <div class="tool-result-num" id="gum-text">Healthy</div>
+          <div class="tool-result-label">Gum Status</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool 5: Pain Locator -->
+    <div class="tool-card fade-up">
+      <div class="tool-header">
+        <div class="tool-icon-wrap">😬</div>
+        <div class="tool-title">Pain Intensity Map</div>
+      </div>
+      <div class="tool-body">
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;letter-spacing:0.04em;">Rate your current tooth/jaw pain level (0 = none, 10 = severe)</p>
+        <div class="pain-grid" id="pain-grid">
+        </div>
+        <div id="pain-advice" class="tool-result blue">
+          <div class="tool-result-num" id="pain-score">—</div>
+          <div class="tool-result-label" id="pain-label">Select a pain level</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool 6: Treatment Estimator -->
+    <div class="tool-card fade-up">
+      <div class="tool-header">
+        <div class="tool-icon-wrap">💎</div>
+        <div class="tool-title">Treatment Finder</div>
+      </div>
+      <div class="tool-body">
+        <select class="tool-select" id="symptom-sel" onchange="findTreatment()">
+          <option value="">— Select your concern —</option>
+          <option value="pain">Toothache / sharp pain</option>
+          <option value="sensitive">Sensitivity to hot/cold</option>
+          <option value="missing">Missing tooth/teeth</option>
+          <option value="stain">Stained / yellow teeth</option>
+          <option value="bleed">Bleeding gums</option>
+          <option value="crack">Chipped / cracked tooth</option>
+          <option value="child">Child's first visit</option>
+          <option value="snore">Snoring / teeth grinding</option>
+        </select>
+        <div id="treatment-result" style="display:none;" class="tool-result teal">
+          <div class="tool-result-num" id="treatment-name" style="font-size:18px;line-height:1.3;"></div>
+          <div class="tool-result-label" id="treatment-sub"></div>
+        </div>
+        <p id="treatment-info" style="font-size:12px;line-height:1.7;color:var(--text-light);margin-top:12px;"></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Reviews -->
+<section id="reviews">
+  <div class="section-header fade-up">
+    <span class="section-label">Patient Stories</span>
+    <h2 class="section-h2">Words From Our <em>Smiling</em> Patients</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Dr. Rana is extraordinary. I had been afraid of dentists for years, but he made my root canal completely painless. The clinic is pristine and the staff are so kind."</p>
+      <div class="review-author">Priya M., Adajan</div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I came for dental implants after losing a tooth in an accident. The result is stunning — I cannot tell the difference from my natural teeth. Absolutely world-class work."</p>
+      <div class="review-author">Rahul S., Surat</div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The entire team is warm, professional and genuinely caring. Dr. Rana takes time to explain every procedure clearly. Best dental experience I have ever had."</p>
+      <div class="review-author">Meena P., Palanpur</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section id="faqs">
+  <div class="section-header fade-up">
+    <span class="section-label">Common Questions</span>
+    <h2 class="section-h2">Answers to Your <em>FAQ</em></h2>
+  </div>
+  <div class="faq-container fade-up">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        Does root canal treatment hurt?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          No. Our advanced painless anesthesia techniques and single-visit precision endodontics make RCT comfortable. Most patients report it's less painful than having a cavity filled. Dr. Rana specializes in making the experience stress-free.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        How long do dental implants last?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          With proper care, dental implants can last 25+ years or even a lifetime. They're a permanent solution to missing teeth. Our 15+ years of implant experience ensures lasting results.
+        </div>
+        <ul class="faq-answer-list">
+          <li>Titanium construction ensures durability</li>
+          <li>Success rate over 99% with proper care</li>
+          <li>Regular checkups extend longevity</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        Do you offer same-day dental treatment?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          Yes! We specialize in same-day treatments including single-visit root canals, emergency extractions, and temporary restorations. Complex cases may require 2-3 visits.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        What are your treatment costs?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          Costs vary by treatment. We offer transparent pricing, EMI options, and cashless payments. Call us for a personalized quote: +91 99049 75842
+        </div>
+        <ul class="faq-answer-list">
+          <li>Flexible payment plans available</li>
+          <li>Insurance claims assistance</li>
+          <li>No hidden charges</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        Do you treat children?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          Absolutely! Our pediatric dentistry program is designed to make children comfortable. We focus on preventive care, gentle techniques, and building lifelong oral health habits.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        How is implant treatment different from a bridge?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          Implants are permanent, replace the tooth root, and preserve jawbone. Bridges are cheaper but require cutting adjacent teeth and don't prevent bone loss. Implants are the modern gold standard for lasting results.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        What's your infection control & sterilization protocol?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          We follow strict WHO protocols. Every instrument is steam-sterilized, we use disposable gloves and masks, and maintain a clinically sterile environment. Your safety is our top priority.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        Can I get a second opinion from Dr. Rana?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-text">
+          Yes. Many patients come for a second opinion. Dr. Rana will review your X-rays and previous treatment plans. Book a consultation: +91 99049 75842. We're here to help you make the best decision for your smile.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Payment Options -->
+<section id="payments">
+  <h2 class="payment-title">Flexible Payment Options</h2>
+  <div class="payment-options fade-up">
+    <div class="payment-badge">
+      <span class="payment-icon">💳</span>
+      <span class="payment-text">Cards & UPI</span>
+    </div>
+    <div class="payment-badge">
+      <span class="payment-icon">💰</span>
+      <span class="payment-text">Cash</span>
+    </div>
+    <div class="payment-badge">
+      <span class="payment-icon">🏦</span>
+      <span class="payment-text">Cashless</span>
+    </div>
+    <div class="payment-badge">
+      <span class="payment-icon">📅</span>
+      <span class="payment-text">EMI via Bajaj</span>
+    </div>
+    <div class="payment-badge">
+      <span class="payment-icon">💎</span>
+      <span class="payment-text">EMI via ZestMoney</span>
+    </div>
+    <div class="payment-badge">
+      <span class="payment-icon">🛡️</span>
+      <span class="payment-text">Insurance Claims</span>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Section -->
+<section id="gallery-carousel">
+  <div class="section-header fade-up">
+    <span class="section-label">A Glimpse of Our Care</span>
+    <h2 class="section-h2">Clinic <em>Gallery</em></h2>
+  </div>
+  
+  <div class="gallery-slider-container fade-up">
+    <div class="gallery-slider">
+      <div class="gallery-slide-item active">
+        <img src="https://images.unsplash.com/photo-1513417037673-c0322c36829e?auto=format&fit=crop&w=1000&q=80" alt="Advanced Clinic Equipment">
+        <div class="gallery-slide-caption">State-of-the-art Endodontic equipment</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1000&q=80" alt="Senior Patient Care">
+        <div class="gallery-slide-caption">Compassionate geriatric dental care</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80" alt="Orthodontic Alignments">
+        <div class="gallery-slide-caption">Modern aligners and orthodontic treatments</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1000&q=80" alt="Dentist Consultation">
+        <div class="gallery-slide-caption">Detailed diagnosis and clinical consultation</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80" alt="Sterilized Treatment Rooms">
+        <div class="gallery-slide-caption">Pristine, 100% sanitized clinic environment</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1000&q=80" alt="Radiant Smiles">
+        <div class="gallery-slide-caption">Restoring smiles with natural cosmetic dentistry</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=1000&q=80" alt="Digital Diagnostic Screen">
+        <div class="gallery-slide-caption">Precise digital X-rays and scanning systems</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=1000&q=80" alt="Friendly Staff">
+        <div class="gallery-slide-caption">Experienced endodontic and implant specialists</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=1000&q=80" alt="Patient Checkups">
+        <div class="gallery-slide-caption">Painless single-visit root canal procedures</div>
+      </div>
+      <div class="gallery-slide-item">
+        <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?auto=format&fit=crop&w=1000&q=80" alt="Family Dental Care">
+        <div class="gallery-slide-caption">Preventative treatments for the entire family</div>
+      </div>
+    </div>
+    
+    <!-- Controls -->
+    <button class="gallery-control prev" onclick="moveGallery(-1)">&#10094;</button>
+    <button class="gallery-control next" onclick="moveGallery(1)">&#10095;</button>
+    
+    <!-- Dots -->
+    <div class="gallery-dots">
+      <span class="gallery-dot active" onclick="setGallerySlide(0)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(1)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(2)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(3)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(4)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(5)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(6)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(7)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(8)"></span>
+      <span class="gallery-dot" onclick="setGallerySlide(9)"></span>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="fade-up">
+    <div class="about-label">Find Us</div>
+    <h2 class="about-h2" style="font-size:clamp(28px,3vw,44px);">Visit Our<br><em>Clinic</em></h2>
+    <div class="contact-detail">
+      <div class="contact-icon">📍</div>
+      <div class="contact-detail-text">
+        <strong>Address</strong>
+        <p>201, Raj World Shopping Center,<br>Nr. Nilkanth Residency, Palanpur Canal Road,<br>Adajan, Surat – 395009, Gujarat</p>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">📞</div>
+      <div class="contact-detail-text">
+        <strong>Phone</strong>
+        <p><a href="tel:+919904975842" style="color:var(--teal);text-decoration:none;font-weight:500;">+91 99049 75842</a></p>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-detail-text">
+        <strong>Email</strong>
+        <p><a href="mailto:anandrn422@gmail.com" style="color:var(--teal);text-decoration:none;font-weight:500;">anandrn422@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">🕐</div>
+      <div class="contact-detail-text">
+        <strong>Hours</strong>
+        <table class="hours-table">
+          <tr><td>Mon – Sat</td><td>10:00 AM – 1:00 PM</td></tr>
+          <tr><td></td><td>4:30 PM – 8:00 PM</td></tr>
+          <tr><td>Sunday</td><td style="color:#C62828;">Closed</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form-wrap fade-up">
+    <h3 class="form-title">Book an Appointment</h3>
+    <p class="form-sub">We'll confirm your slot within 2 hours.</p>
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" placeholder="Raj"></div>
+      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Sharma"></div>
+    </div>
+    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+    <div class="form-group"><label>Treatment Needed</label>
+      <select>
+        <option>Root Canal Treatment</option>
+        <option>Dental Implant</option>
+        <option>Teeth Whitening</option>
+        <option>Crown / Bridge</option>
+        <option>Routine Checkup</option>
+        <option>Smile Makeover</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Preferred Date</label><input type="date"></div>
+    <div class="form-group"><label>Additional Notes</label><textarea rows="3" placeholder="Any specific concerns or questions..."></textarea></div>
+    <button class="form-submit" onclick="submitForm()">Request Appointment →</button>
+    <div class="form-success" id="form-success">✓ Thank you! We'll call you to confirm your appointment shortly.</div>
+  </div>
+</section>
+
+<!-- Map Strip -->
+<div id="map-strip">
+  <iframe class="map-strip-bg" src="https://maps.google.com/maps?q=Anand%20Dental%20Care%20%26%20Implant%20Centre%2C%20Adajan%2C%20Surat&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+  <div class="map-strip-text">
+    <h3>201 Raj World Shopping Center, Adajan, Surat</h3>
+    <p>Palanpur Canal Road · Near Nilkanth Residency · Surat 395009</p>
+  </div>
+  <a href="https://maps.google.com/?q=Anand+Dental+Care+Adajan+Surat" class="map-strip-link" target="_blank">Open in Maps →</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Anand Dental Care<span>& Implant Centre</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="#about">About Dr. Rana</a>
+      <a href="#services">Services</a>
+      <a href="#tools">Health Tools</a>
+      <a href="#reviews">Patient Reviews</a>
+    </div>
+    <div class="footer-links">
+      <a href="tel:+919904975842">+91 99049 75842</a>
+      <a href="mailto:anandrn422@gmail.com">anandrn422@gmail.com</a>
+      <a href="#">Adajan, Surat – 395009</a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>© 2026 Anand Dental Care & Implant Centre. All rights reserved.</span>
+    <span>Designed for excellence · Surat, Gujarat</span>
+  </div>
+</footer>
+
+<!-- Scroll Top Button -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<script>
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a,button,input,select,textarea,.service-card,.tool-card,.pain-dot').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.6)'; ring.style.opacity = '0.3'; cursor.style.transform = 'translate(-50%,-50%) scale(0.6)'; });
+  el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.6'; cursor.style.transform = 'translate(-50%,-50%) scale(1)'; });
+});
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// ── SCROLL TOP BTN ──
+window.addEventListener('scroll', () => {
+  document.getElementById('scroll-top').classList.toggle('show', window.scrollY > 400);
+});
+
+// ── TOOL 1: ORAL HEALTH SCORE ──
+const brushLabels = ['0×','1×','2×','3×','4×'];
+const flossLabels = ['0×','1×','2×','3×','4×','5×','6×','7×'];
+const visitLabels = ['<6m','1 yr','2 yr','3 yr','4 yr','5+ yr'];
+function calcOral() {
+  const b = parseInt(document.getElementById('brush-slider').value);
+  const f = parseInt(document.getElementById('floss-slider').value);
+  const v = parseInt(document.getElementById('visit-slider').value);
+  document.getElementById('brush-val').textContent = brushLabels[b];
+  document.getElementById('floss-val').textContent = flossLabels[f];
+  document.getElementById('visit-val').textContent = visitLabels[v];
+  const bScore = b * 12;
+  const fScore = Math.min(f, 4) * 6;
+  const vScore = Math.max(0, (5 - v) * 6);
+  const total = Math.min(100, bScore + fScore + vScore + 10);
+  document.getElementById('oral-score').textContent = total;
+  const res = document.getElementById('oral-result');
+  res.className = 'tool-result ' + (total >= 70 ? 'teal' : total >= 45 ? 'amber' : 'red');
+  res.querySelector('.tool-result-label').textContent = total >= 70 ? '🟢 Great Oral Health' : total >= 45 ? '🟡 Needs Improvement' : '🔴 See a Dentist Soon';
+}
+document.getElementById('brush-slider').addEventListener('input', calcOral);
+document.getElementById('floss-slider').addEventListener('input', calcOral);
+document.getElementById('visit-slider').addEventListener('input', calcOral);
+calcOral();
+
+// ── TOOL 2: CAVITY RISK ──
+const cavityChecks = ['c1','c2','c3','c4','c5','c6'];
+function calcCavity() {
+  let count = cavityChecks.filter(id => document.getElementById(id).checked).length;
+  const pct = Math.round(count / 6 * 100);
+  const bar = document.getElementById('cavity-bar');
+  bar.style.width = pct + '%';
+  bar.style.background = count <= 1 ? 'var(--teal)' : count <= 3 ? '#F57F17' : '#C62828';
+  const res = document.getElementById('cavity-result');
+  const txt = document.getElementById('cavity-text');
+  if (count === 0) { res.className = 'tool-result green'; txt.textContent = 'Low Risk'; }
+  else if (count <= 2) { res.className = 'tool-result teal'; txt.textContent = 'Moderate Risk'; }
+  else if (count <= 4) { res.className = 'tool-result amber'; txt.textContent = 'High Risk'; }
+  else { res.className = 'tool-result red'; txt.textContent = 'See Dr. Rana Now'; }
+}
+cavityChecks.forEach(id => document.getElementById(id).addEventListener('change', calcCavity));
+
+// ── TOOL 3: BRUSH TIMER ──
+let timerInt = null, timerSec = 120, timerRunning = false, currentSeg = 0;
+const zones = ['Upper Front','Upper Back','Lower Front','Lower Back'];
+const segDur = 30;
+function toggleTimer() {
+  if (timerRunning) {
+    clearInterval(timerInt); timerRunning = false;
+    document.getElementById('timer-btn').textContent = '▶ Resume';
+  } else {
+    timerRunning = true;
+    document.getElementById('timer-btn').textContent = '⏸ Pause';
+    timerInt = setInterval(() => {
+      timerSec--;
+      if (timerSec < 0) {
+        clearInterval(timerInt); timerRunning = false;
+        document.getElementById('timer-display').textContent = '✓ Done!';
+        document.getElementById('timer-zone').textContent = 'Great job!';
+        document.getElementById('timer-btn').textContent = '↺ Restart';
+        document.getElementById('timer-btn').onclick = resetTimer;
+        return;
+      }
+      const m = Math.floor(timerSec / 60), s = timerSec % 60;
+      document.getElementById('timer-display').textContent = m + ':' + String(s).padStart(2,'0');
+      const seg = Math.floor((120 - timerSec) / segDur);
+      if (seg !== currentSeg && seg < 4) {
+        document.getElementById('seg-' + currentSeg).classList.add('done');
+        currentSeg = seg;
+      }
+      document.getElementById('timer-zone').textContent = zones[Math.min(seg, 3)];
+    }, 1000);
+  }
+}
+function resetTimer() {
+  clearInterval(timerInt); timerRunning = false; timerSec = 120; currentSeg = 0;
+  document.getElementById('timer-display').textContent = '2:00';
+  document.getElementById('timer-zone').textContent = 'Ready';
+  document.getElementById('timer-btn').textContent = '▶ Start Brushing';
+  document.getElementById('timer-btn').onclick = toggleTimer;
+  for (let i = 0; i < 4; i++) document.getElementById('seg-'+i).classList.remove('done');
+}
+
+// ── TOOL 4: GUM HEALTH ──
+function calcGum() {
+  const checks = ['g1','g2','g3','g4','g5'].filter(id => document.getElementById(id).checked).length;
+  const res = document.getElementById('gum-result');
+  const txt = document.getElementById('gum-text');
+  if (checks === 0) { res.className = 'tool-result green'; txt.textContent = 'Healthy'; }
+  else if (checks === 1) { res.className = 'tool-result teal'; txt.textContent = 'Watch & Improve'; }
+  else if (checks <= 2) { res.className = 'tool-result amber'; txt.textContent = 'Early Gingivitis'; }
+  else if (checks <= 3) { res.className = 'tool-result red'; txt.textContent = 'See Dentist Soon'; }
+  else { res.className = 'tool-result red'; txt.textContent = 'Urgent Attention Needed'; }
+}
+
+// ── TOOL 5: PAIN LOCATOR ──
+const painColors = ['#EDF7ED','#C8E6C9','#FFF9C4','#FFECB3','#FFE0B2','#FFCCBC','#FFAB91','#FF8A65','#EF5350','#E53935','#B71C1C'];
+const painText = ['No Pain','Barely','Mild','Noticeable','Moderate','Uncomfortable','Strong','Very Strong','Severe','Intense','Unbearable'];
+const painAdvice = ['Excellent! Keep maintaining your routine.','Minimal discomfort — monitor it.','Consider a checkup at your convenience.','Mild pain — book a routine visit.','Moderate pain — schedule an appointment soon.','Significant pain — please call us this week.','Strong pain — visit within 2–3 days.','Very strong pain — call +91 99049 75842 today.','Severe — please seek care immediately.','Intense pain — emergency dental visit needed.','Unbearable — call us NOW: +91 99049 75842'];
+let selPain = -1;
+const painGrid = document.getElementById('pain-grid');
+for (let i = 0; i <= 10; i++) {
+  const d = document.createElement('div');
+  d.className = 'pain-dot';
+  d.style.background = painColors[i];
+  d.style.color = i >= 6 ? 'white' : '#333';
+  d.textContent = i;
+  d.onclick = () => selectPain(i);
+  if (i === 10) d.style.gridColumn = 'span 1';
+  painGrid.appendChild(d);
+}
+function selectPain(n) {
+  selPain = n;
+  document.querySelectorAll('.pain-dot').forEach((d,i) => d.classList.toggle('active', i === n));
+  const res = document.getElementById('pain-advice');
+  res.className = 'tool-result ' + (n <= 2 ? 'green' : n <= 5 ? 'amber' : 'red');
+  document.getElementById('pain-score').textContent = n + '/10';
+  document.getElementById('pain-label').textContent = painAdvice[n];
+}
+
+// ── TOOL 6: TREATMENT FINDER ──
+const treatments = {
+  pain: { name: 'Root Canal Treatment', sub: 'Specialist treatment to relieve pain', info: 'Dr. Rana is a Gold Medalist RCT specialist. Painless single-visit endodontics available.', cls: 'teal' },
+  sensitive: { name: 'Sensitivity Assessment', sub: 'Diagnosis + desensitization treatment', info: 'Could indicate enamel erosion, exposed roots or early cavities. A checkup will clarify.', cls: 'blue' },
+  missing: { name: 'Dental Implant', sub: 'Permanent tooth replacement', info: 'Titanium implants that look and function like natural teeth. Consultation is the first step.', cls: 'teal' },
+  stain: { name: 'Professional Whitening', sub: 'Up to 8 shades brighter', info: 'In-clinic whitening delivers safe, dramatic results — maintained with a home kit.', cls: 'amber' },
+  bleed: { name: 'Gum Disease Treatment', sub: 'Scaling, root planing + care plan', info: 'Bleeding gums are an early sign of gingivitis. Early treatment prevents bone loss.', cls: 'red' },
+  crack: { name: 'Crown or Bonding', sub: 'Ceramic restoration for cracks', info: 'Tooth-colored ceramic crowns or bonding restores strength and aesthetics perfectly.', cls: 'teal' },
+  child: { name: 'Pediatric Dental Visit', sub: 'Gentle first appointment for kids', info: 'Our child-friendly environment makes first visits easy and positive. Recommended from age 2.', cls: 'green' },
+  snore: { name: 'Night Guard / Splint', sub: 'Custom occlusal splint therapy', info: 'Bruxism (teeth grinding) can damage enamel. A custom splint protects your teeth overnight.', cls: 'blue' }
+};
+function findTreatment() {
+  const val = document.getElementById('symptom-sel').value;
+  const div = document.getElementById('treatment-result');
+  const info = document.getElementById('treatment-info');
+  if (!val) { div.style.display = 'none'; info.textContent = ''; return; }
+  const t = treatments[val];
+  div.style.display = 'block';
+  div.className = 'tool-result ' + t.cls;
+  document.getElementById('treatment-name').textContent = t.name;
+  document.getElementById('treatment-sub').textContent = t.sub;
+  info.textContent = t.info;
+}
+
+// ── FORM SUBMIT ──
+function submitForm() {
+  document.getElementById('form-success').style.display = 'block';
+  setTimeout(() => document.getElementById('form-success').style.display = 'none', 5000);
+}
+
+// ── HERO IMAGE SLIDER (15 IMAGES) ──
+let slideIndex = 0;
+const slides = document.querySelectorAll('.hero-slide');
+function showNextSlide() {
+  if (slides.length === 0) return;
+  slides[slideIndex].classList.remove('active');
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add('active');
+}
+setInterval(showNextSlide, 4000);
+
+// ── CLINIC GALLERY SLIDER (10 IMAGES) ──
+let galleryIndex = 0;
+const gallerySlides = document.querySelectorAll('.gallery-slide-item');
+const galleryDots = document.querySelectorAll('.gallery-dot');
+let galleryInterval = setInterval(() => moveGallery(1), 5000);
+
+function showGallerySlide(n) {
+  if (gallerySlides.length === 0) return;
+  gallerySlides[galleryIndex].classList.remove('active');
+  galleryDots[galleryIndex].classList.remove('active');
+  
+  galleryIndex = (n + gallerySlides.length) % gallerySlides.length;
+  
+  gallerySlides[galleryIndex].classList.add('active');
+  galleryDots[galleryIndex].classList.add('active');
+}
+
+function moveGallery(step) {
+  resetGalleryInterval();
+  showGallerySlide(galleryIndex + step);
+}
+
+function setGallerySlide(index) {
+  resetGalleryInterval();
+  showGallerySlide(index);
+}
+
+function resetGalleryInterval() {
+  clearInterval(galleryInterval);
+  galleryInterval = setInterval(() => moveGallery(1), 5000);
+}
+
+// ── SERVICE CARD FLIP ──
+function flipCard(element) {
+  element.classList.toggle('flipped');
+}
+
+// ── FAQ TOGGLE ──
+function toggleFAQ(element) {
+  const parent = element.closest('.faq-item');
+  parent.classList.toggle('active');
+}
+
+// ── SCROLL ANIMATIONS FOR TIMELINE ──
+const observerTimeline = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, parseInt(entry.target.style.animationDelay) || 0);
+    }
+  });
+});
+
+document.querySelectorAll('.timeline-step.fade-up').forEach((el, idx) => {
+  el.style.animationDelay = (idx * 100) + 'ms';
+  observerTimeline.observe(el);
+});
+</script>
+</body>
+</html>
