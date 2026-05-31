@@ -111,9 +111,14 @@
   .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
   .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--navy); }
   .section-h2 em { font-style: italic; color: var(--teal); }
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; }
-  .service-card { background: var(--white); padding: 44px 36px; position: relative; overflow: hidden; transition: all 0.4s; }
-  .service-card:hover { background: var(--navy); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; perspective: 1200px; }
+  .service-card { background: var(--white); padding: 44px 36px; position: relative; overflow: visible; transition: all 0.4s; min-height: 320px; cursor: pointer; }
+  .service-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-style: preserve-3d; }
+  .service-card.flipped .service-card-inner { transform: rotateY(180deg); }
+  .service-card-front, .service-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; padding: 44px 36px; display: flex; flex-direction: column; justify-content: center; }
+  .service-card-front { background: var(--white); transform: rotateY(0deg); }
+  .service-card-back { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); transform: rotateY(180deg); padding: 36px; }
+  .service-card:hover .service-card-front { background: var(--navy); }
   .service-card:hover .service-name, .service-card:hover .service-desc { color: var(--white); }
   .service-card:hover .service-icon { color: var(--gold-light); }
   .service-card:hover .service-num { color: rgba(255,255,255,0.08); }
@@ -121,6 +126,12 @@
   .service-icon { font-size: 28px; color: var(--teal); margin-bottom: 24px; transition: color 0.4s; display: block; }
   .service-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--navy); margin-bottom: 12px; transition: color 0.4s; }
   .service-desc { font-size: 13px; line-height: 1.8; color: var(--text-light); font-weight: 300; transition: color 0.4s; }
+  .service-back-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 16px; }
+  .service-back-content { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+  .service-back-list { list-style: none; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 2; }
+  .service-back-list li::before { content: '✓ '; color: var(--gold-light); font-weight: 600; margin-right: 6px; }
+  .service-back-cta { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); margin-top: 16px; font-weight: 500; cursor: pointer; transition: color 0.3s; }
+  .service-back-cta:hover { color: var(--white); }
 
   /* ── HEALTH TOOLS ── */
   #tools { padding: 120px 10vw; background: var(--white); }
@@ -255,6 +266,23 @@
   .payment-icon { font-size: 24px; }
   .payment-text { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 400; }
   .payment-badge:hover .payment-text { color: var(--gold-light); }
+
+  /* ── ROTATING IMAGE FRAME ── */
+  #image-carousel { padding: 80px 10vw; background: var(--white); position: relative; }
+  .carousel-container { max-width: 1000px; margin: 0 auto; }
+  .carousel-header { text-align: center; margin-bottom: 48px; }
+  .carousel-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--navy); margin-bottom: 12px; }
+  .carousel-frame { position: relative; width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--cream); border: 2px solid rgba(184,147,90,0.2); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .carousel-slide-frame { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; align-items: center; justify-content: center; }
+  .carousel-slide-frame.active { opacity: 1; }
+  .carousel-slide-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .carousel-controls { display: flex; justify-content: center; gap: 24px; margin-top: 32px; align-items: center; }
+  .carousel-btn { background: var(--navy); color: var(--white); border: 1px solid var(--navy); padding: 10px 24px; border-radius: 2px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: 'Jost', sans-serif; font-weight: 400; }
+  .carousel-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .carousel-indicators { display: flex; gap: 8px; }
+  .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(184,147,90,0.3); cursor: pointer; transition: all 0.3s; border: 1px solid rgba(184,147,90,0.2); }
+  .carousel-dot.active { background: var(--gold); transform: scale(1.2); border-color: var(--gold); }
+  .carousel-dot:hover { background: var(--gold-light); }
 
   /* ── FOOTER ── */
   footer { background: #080E14; padding: 60px 10vw 32px; }
@@ -407,6 +435,69 @@
   </div>
 </section>
 
+<!-- Rotating Image Frame -->
+<section id="image-carousel">
+  <div class="carousel-container">
+    <div class="carousel-header">
+      <h2 class="carousel-title">Our Clinic & Treatments</h2>
+    </div>
+    <div class="carousel-frame">
+      <div class="carousel-slide-frame active">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80" alt="Modern dental clinic treatment room">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1595502124338-950db27ea1c7?auto=format&fit=crop&w=1200&q=80" alt="Healthy confident smile">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1200&q=80" alt="Professional dentist during checkup">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=1200&q=80" alt="Advanced 3D dental tooth model">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80" alt="Beautiful white teeth smile">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80" alt="Expert dental consultation">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1447482012126-fd97f294de8d?auto=format&fit=crop&w=1200&q=80" alt="Sterilized high-precision dental tools">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80" alt="Happy male patient smile">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Clean modern clinic office reception">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=1200&q=80" alt="Morning dental health routine">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80" alt="Advanced digital diagnostic scan">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=1200&q=80" alt="Happy healthy family smiles">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1464998857633-50e59fbf2fe6?auto=format&fit=crop&w=1200&q=80" alt="Comfortable pediatric dental checkup">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80" alt="Cosmetic dentistry veneer design">
+      </div>
+      <div class="carousel-slide-frame">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80" alt="Patient showing teeth clinic">
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="moveCarousel(-1)">← Previous</button>
+      <div class="carousel-indicators" id="carousel-indicators">
+        <!-- Dots generated by JavaScript -->
+      </div>
+      <button class="carousel-btn" onclick="moveCarousel(1)">Next →</button>
+    </div>
+  </div>
+</section>
+
 <!-- Marquee -->
 <div class="marquee-bar">
   <div class="marquee-track">
@@ -532,41 +623,142 @@
     <h2 class="section-h2">Treatments for Every <em>Smile</em></h2>
   </div>
   <div class="services-grid fade-up">
-    <div class="service-card">
-      <span class="service-num">01</span>
-      <span class="service-icon">🦷</span>
-      <h3 class="service-name">Root Canal Treatment</h3>
-      <p class="service-desc">Single-visit precision endodontics. Painless, efficient, and performed by a Gold Medalist RCT specialist.</p>
+    <div class="service-card" onclick="flipCard(this)">
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <span class="service-num">01</span>
+          <span class="service-icon">🦷</span>
+          <h3 class="service-name">Root Canal Treatment</h3>
+          <p class="service-desc">Single-visit precision endodontics. Painless, efficient, and performed by a Gold Medalist RCT specialist.</p>
+        </div>
+        <div class="service-card-back">
+          <h3 class="service-back-title">Root Canal Treatment</h3>
+          <p class="service-back-content">Our specialist endodontic treatment saves teeth that would otherwise be lost to infection or decay.</p>
+          <ul class="service-back-list">
+            <li>Advanced rotary instrumentation</li>
+            <li>Single-visit treatment available</li>
+            <li>Painless anesthesia techniques</li>
+            <li>99%+ success rate</li>
+            <li>Saves natural tooth structure</li>
+          </ul>
+          <div class="service-back-cta">Click to know more →</div>
+        </div>
+      </div>
     </div>
-    <div class="service-card">
-      <span class="service-num">02</span>
-      <span class="service-icon">🔩</span>
-      <h3 class="service-name">Dental Implants</h3>
-      <p class="service-desc">Life-like titanium implants that look, feel, and function like natural teeth — a permanent smile solution.</p>
+
+    <div class="service-card" onclick="flipCard(this)">
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <span class="service-num">02</span>
+          <span class="service-icon">🔩</span>
+          <h3 class="service-name">Dental Implants</h3>
+          <p class="service-desc">Life-like titanium implants that look, feel, and function like natural teeth — a permanent smile solution.</p>
+        </div>
+        <div class="service-card-back">
+          <h3 class="service-back-title">Dental Implants</h3>
+          <p class="service-back-content">Permanent tooth replacement with 25+ year lifespan and natural aesthetics.</p>
+          <ul class="service-back-list">
+            <li>Titanium biocompatible structure</li>
+            <li>Ceramic crown restoration</li>
+            <li>Bone preservation technology</li>
+            <li>Immediate or delayed placement</li>
+            <li>15+ years expert experience</li>
+          </ul>
+          <div class="service-back-cta">Click to know more →</div>
+        </div>
+      </div>
     </div>
-    <div class="service-card">
-      <span class="service-num">03</span>
-      <span class="service-icon">✨</span>
-      <h3 class="service-name">Teeth Whitening</h3>
-      <p class="service-desc">Professional-grade whitening treatments for a brilliantly bright smile — up to 8 shades lighter in one visit.</p>
+
+    <div class="service-card" onclick="flipCard(this)">
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <span class="service-num">03</span>
+          <span class="service-icon">✨</span>
+          <h3 class="service-name">Teeth Whitening</h3>
+          <p class="service-desc">Professional-grade whitening treatments for a brilliantly bright smile — up to 8 shades lighter in one visit.</p>
+        </div>
+        <div class="service-card-back">
+          <h3 class="service-back-title">Teeth Whitening</h3>
+          <p class="service-back-content">Safe, effective professional whitening with long-lasting results.</p>
+          <ul class="service-back-list">
+            <li>Up to 8 shades lighter per visit</li>
+            <li>Professional-grade treatment</li>
+            <li>Sensitivity management included</li>
+            <li>Home maintenance kit provided</li>
+            <li>Results last 6-12 months</li>
+          </ul>
+          <div class="service-back-cta">Click to know more →</div>
+        </div>
+      </div>
     </div>
-    <div class="service-card">
-      <span class="service-num">04</span>
-      <span class="service-icon">👑</span>
-      <h3 class="service-name">Crowns & Bridges</h3>
-      <p class="service-desc">Ceramic and zirconia restorations crafted to perfection — restoring strength and natural aesthetics seamlessly.</p>
+
+    <div class="service-card" onclick="flipCard(this)">
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <span class="service-num">04</span>
+          <span class="service-icon">👑</span>
+          <h3 class="service-name">Crowns & Bridges</h3>
+          <p class="service-desc">Ceramic and zirconia restorations crafted to perfection — restoring strength and natural aesthetics seamlessly.</p>
+        </div>
+        <div class="service-card-back">
+          <h3 class="service-back-title">Crowns & Bridges</h3>
+          <p class="service-back-content">Durable, natural-looking restorations that restore function and appearance.</p>
+          <ul class="service-back-list">
+            <li>Full ceramic and zirconia options</li>
+            <li>CAD/CAM same-day crowns available</li>
+            <li>Natural shade and contour matching</li>
+            <li>10-15 year durability</li>
+            <li>Bridge and implant supported</li>
+          </ul>
+          <div class="service-back-cta">Click to know more →</div>
+        </div>
+      </div>
     </div>
-    <div class="service-card">
-      <span class="service-num">05</span>
-      <span class="service-icon">😁</span>
-      <h3 class="service-name">Smile Makeover</h3>
-      <p class="service-desc">Comprehensive cosmetic treatment plans — veneers, bonding, contouring — designed around your unique facial features.</p>
+
+    <div class="service-card" onclick="flipCard(this)">
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <span class="service-num">05</span>
+          <span class="service-icon">😁</span>
+          <h3 class="service-name">Smile Makeover</h3>
+          <p class="service-desc">Comprehensive cosmetic treatment plans — veneers, bonding, contouring — designed around your unique facial features.</p>
+        </div>
+        <div class="service-card-back">
+          <h3 class="service-back-title">Smile Makeover</h3>
+          <p class="service-back-content">Complete smile transformation combining multiple cosmetic treatments.</p>
+          <ul class="service-back-list">
+            <li>Porcelain veneers & bonding</li>
+            <li>Gum contouring & shaping</li>
+            <li>Teeth alignment assessment</li>
+            <li>Customized treatment plan</li>
+            <li>Natural-looking aesthetic results</li>
+          </ul>
+          <div class="service-back-cta">Click to know more →</div>
+        </div>
+      </div>
     </div>
-    <div class="service-card">
-      <span class="service-num">06</span>
-      <span class="service-icon">🧒</span>
-      <h3 class="service-name">Pediatric Dentistry</h3>
-      <p class="service-desc">Gentle, child-friendly dental care in a warm environment — building healthy habits from the very first visit.</p>
+
+    <div class="service-card" onclick="flipCard(this)">
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <span class="service-num">06</span>
+          <span class="service-icon">🧒</span>
+          <h3 class="service-name">Pediatric Dentistry</h3>
+          <p class="service-desc">Gentle, child-friendly dental care in a warm environment — building healthy habits from the very first visit.</p>
+        </div>
+        <div class="service-card-back">
+          <h3 class="service-back-title">Pediatric Dentistry</h3>
+          <p class="service-back-content">Specialized care for children in a comfortable, welcoming environment.</p>
+          <ul class="service-back-list">
+            <li>Child-friendly approach & language</li>
+            <li>Preventive care focus</li>
+            <li>Sealant & fluoride applications</li>
+            <li>Behavior guidance techniques</li>
+            <li>Early orthodontic assessment</li>
+          </ul>
+          <div class="service-back-cta">Click to know more →</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1244,6 +1436,44 @@ function showNextSlide() {
   slides[slideIndex].classList.add('active');
 }
 setInterval(showNextSlide, 4000);
+
+// ── ROTATING IMAGE CAROUSEL (15 IMAGES) ──
+let carouselIndex = 0;
+const carouselSlides = document.querySelectorAll('.carousel-slide-frame');
+const indicatorsContainer = document.getElementById('carousel-indicators');
+let carouselInterval;
+
+// Create indicator dots
+carouselSlides.forEach((_, idx) => {
+  const dot = document.createElement('div');
+  dot.className = 'carousel-dot' + (idx === 0 ? ' active' : '');
+  dot.onclick = () => moveCarousel(idx - carouselIndex);
+  indicatorsContainer.appendChild(dot);
+});
+
+function showCarouselSlide(n) {
+  if (carouselSlides.length === 0) return;
+  carouselSlides[carouselIndex].classList.remove('active');
+  document.querySelectorAll('.carousel-dot')[carouselIndex].classList.remove('active');
+  
+  carouselIndex = (n + carouselSlides.length) % carouselSlides.length;
+  
+  carouselSlides[carouselIndex].classList.add('active');
+  document.querySelectorAll('.carousel-dot')[carouselIndex].classList.add('active');
+}
+
+function moveCarousel(step) {
+  resetCarouselInterval();
+  showCarouselSlide(carouselIndex + step);
+}
+
+function resetCarouselInterval() {
+  clearInterval(carouselInterval);
+  carouselInterval = setInterval(() => moveCarousel(1), 5000);
+}
+
+// Auto-rotate carousel
+carouselInterval = setInterval(() => moveCarousel(1), 5000);
 
 // ── CLINIC GALLERY SLIDER (10 IMAGES) ──
 let galleryIndex = 0;
