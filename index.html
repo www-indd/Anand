@@ -27,9 +27,13 @@
   body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
 
   /* ── CURSOR ── */
-  *, *::before, *::after { cursor: none !important; }
-  #cursor { position: fixed; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s, background 0.2s; }
-  #cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s ease; opacity: 0.6; }
+  #cursor { position: fixed; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s, background 0.2s; display: none; }
+  #cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s ease; opacity: 0.6; display: none; }
+
+  @media (hover: hover) and (pointer: fine) {
+    *, *::before, *::after { cursor: none !important; }
+    #cursor, #cursor-ring { display: block; }
+  }
 
   /* ── NAV ── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5vw; height: 72px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(184,147,90,0.15); }
@@ -77,12 +81,24 @@
   .hero-badge-text { font-size: 9px; letter-spacing: 0.12em; color: rgba(255,255,255,0.7); text-transform: uppercase; text-align: center; line-height: 1.6; }
   .hero-badge-icon { color: var(--gold); font-size: 22px; margin-bottom: 6px; }
 
-  /* ── MARQUEE ── */
+  /* ── MARQUEE (TEXT) ── */
   .marquee-bar { background: var(--navy); padding: 14px 0; overflow: hidden; }
   .marquee-track { display: flex; gap: 0; animation: marquee 25s linear infinite; white-space: nowrap; }
   .marquee-item { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 0 40px; border-right: 1px solid rgba(255,255,255,0.1); }
   .marquee-item span { color: var(--gold); }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── IMAGE MARQUEE (MOVING FRAME) ── */
+  .image-marquee-bar { background: var(--off-white); padding: 32px 0; overflow: hidden; border-bottom: 1px solid rgba(184,147,90,0.15); }
+  .image-marquee-track { display: flex; gap: 20px; width: max-content; animation: marquee-img 50s linear infinite; }
+  .image-marquee-track:hover { animation-play-state: paused; }
+  .image-marquee-item { width: 280px; height: 180px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(184,147,90,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); flex-shrink: 0; }
+  .image-marquee-item:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 16px 32px rgba(184,147,90,0.22); border-color: var(--gold); }
+  .image-marquee-item img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes marquee-img {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 
   /* ── ABOUT DR ── */
   #about { padding: 120px 10vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: var(--white); }
@@ -105,33 +121,65 @@
   .about-card-list li::before { content: ''; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
   .about-card-deco { position: absolute; bottom: 0; right: 0; opacity: 0.06; }
 
+  /* ── TREATMENT TIMELINE ── */
+  #timeline { padding: 140px 10vw; background: linear-gradient(135deg, var(--white) 0%, rgba(245,237,216,0.4) 100%); position: relative; overflow: hidden; }
+  #timeline::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(184,147,90,0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+  #timeline::after { content: ''; position: absolute; bottom: 0; left: 0; width: 250px; height: 250px; background: radial-gradient(circle, rgba(42,107,107,0.05) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+  .timeline-header { text-align: center; margin-bottom: 80px; position: relative; z-index: 1; }
+  .timeline-container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+  .timeline-line { position: absolute; top: 80px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%); transform: translateY(-50%); box-shadow: 0 2px 8px rgba(184,147,90,0.2); }
+  .timeline-steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px; position: relative; z-index: 2; }
+  .timeline-step { text-align: center; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+  .timeline-step:hover { transform: translateY(-12px); }
+  .timeline-dot { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--white) 0%, rgba(255,255,255,0.95) 100%); border: 4px solid var(--gold); margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; font-size: 32px; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 12px 32px rgba(184,147,90,0.15), inset 0 1px 2px rgba(255,255,255,0.8); position: relative; }
+  .timeline-step:hover .timeline-dot { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); transform: scale(1.15) rotateY(360deg); box-shadow: 0 20px 48px rgba(184,147,90,0.3), inset 0 1px 2px rgba(255,255,255,0.8); border-color: var(--gold-light); }
+  .timeline-dot::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--gold); opacity: 0; animation: pulse-ring 1.5s infinite; }
+  @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+  .timeline-label { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--navy); margin-bottom: 12px; letter-spacing: 0.02em; }
+  .timeline-desc { font-size: 13px; color: var(--text-mid); line-height: 1.8; letter-spacing: 0.03em; font-weight: 300; }
+  .timeline-step.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .timeline-step.fade-up.visible { opacity: 1; transform: translateY(0); }
+
   /* ── SERVICES ── */
   #services { padding: 120px 10vw; background: var(--cream); }
   .section-header { text-align: center; margin-bottom: 72px; }
   .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
   .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--navy); }
   .section-h2 em { font-style: italic; color: var(--teal); }
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; perspective: 1200px; }
-  .service-card { background: var(--white); padding: 44px 36px; position: relative; overflow: visible; transition: all 0.4s; min-height: 320px; cursor: pointer; }
-  .service-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-style: preserve-3d; }
-  .service-card.flipped .service-card-inner { transform: rotateY(180deg); }
-  .service-card-front, .service-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; padding: 44px 36px; display: flex; flex-direction: column; justify-content: center; }
-  .service-card-front { background: var(--white); transform: rotateY(0deg); }
-  .service-card-back { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); transform: rotateY(180deg); padding: 36px; }
-  .service-card:hover .service-card-front { background: var(--navy); }
-  .service-card:hover .service-name, .service-card:hover .service-desc { color: var(--white); }
-  .service-card:hover .service-icon { color: var(--gold-light); }
-  .service-card:hover .service-num { color: rgba(255,255,255,0.08); }
-  .service-num { position: absolute; top: 28px; right: 28px; font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: rgba(0,0,0,0.04); line-height: 1; transition: color 0.4s; }
-  .service-icon { font-size: 28px; color: var(--teal); margin-bottom: 24px; transition: color 0.4s; display: block; }
-  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--navy); margin-bottom: 12px; transition: color 0.4s; }
-  .service-desc { font-size: 13px; line-height: 1.8; color: var(--text-light); font-weight: 300; transition: color 0.4s; }
-  .service-back-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 16px; }
-  .service-back-content { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
-  .service-back-list { list-style: none; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 2; }
-  .service-back-list li::before { content: '✓ '; color: var(--gold-light); font-weight: 600; margin-right: 6px; }
-  .service-back-cta { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); margin-top: 16px; font-weight: 500; cursor: pointer; transition: color 0.3s; }
-  .service-back-cta:hover { color: var(--white); }
+  .services-hint { text-align: center; margin-bottom: 40px; margin-top: -40px; font-size: 12px; letter-spacing: 0.1em; color: var(--text-light); display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .services-hint::before, .services-hint::after { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  /* Flip Card Container */
+  .service-card-wrap { perspective: 1200px; height: 340px; }
+  .service-card { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1); cursor: pointer; border-radius: 8px; }
+  .service-card.flipped { transform: rotateY(180deg); }
+
+  /* Front Face */
+  .service-card-front, .service-card-back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 8px; overflow: hidden; }
+  .service-card-front { background: var(--white); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 20px rgba(0,0,0,0.04); display: flex; flex-direction: column; padding: 40px 32px; }
+  .service-card-front:hover { border-color: rgba(184,147,90,0.25); box-shadow: 0 12px 40px rgba(184,147,90,0.1); }
+  .service-num { position: absolute; top: 20px; right: 24px; font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: rgba(0,0,0,0.04); line-height: 1; }
+  .service-icon { font-size: 30px; margin-bottom: 20px; display: block; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--navy); margin-bottom: 10px; }
+  .service-desc { font-size: 13px; line-height: 1.8; color: var(--text-light); font-weight: 300; flex: 1; }
+  .service-flip-hint { margin-top: 20px; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 6px; }
+  .service-flip-hint svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 2; animation: spin-hint 2s ease-in-out infinite; }
+  @keyframes spin-hint { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } }
+
+  /* Back Face */
+  .service-card-back { background: linear-gradient(135deg, var(--navy) 0%, #1e3a5f 100%); transform: rotateY(180deg); padding: 32px 28px; display: flex; flex-direction: column; border: 1px solid rgba(184,147,90,0.25); }
+  .back-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(184,147,90,0.2); }
+  .back-icon { font-size: 22px; }
+  .back-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--white); line-height: 1.2; }
+  .back-meta { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .back-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(184,147,90,0.4); color: var(--gold-light); }
+  .back-benefits { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; margin-bottom: 16px; }
+  .back-benefits li { font-size: 12.5px; color: rgba(255,255,255,0.72); font-weight: 300; line-height: 1.6; display: flex; align-items: flex-start; gap: 8px; }
+  .back-benefits li::before { content: '✓'; color: var(--gold); font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+  .back-cta { background: var(--gold); color: var(--white); border: none; padding: 10px 20px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 3px; font-family: 'Jost', sans-serif; font-weight: 400; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; transition: background 0.2s; margin-top: auto; }
+  .back-cta:hover { background: var(--gold-light); }
+  .back-close-hint { font-size: 10px; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-align: right; margin-top: 8px; text-transform: uppercase; }
 
   /* ── HEALTH TOOLS ── */
   #tools { padding: 120px 10vw; background: var(--white); }
@@ -187,6 +235,48 @@
   .review-author { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 10px; }
   .review-author::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
 
+  /* ── FAQ SECTION ── */
+  #faqs { padding: 120px 10vw; background: var(--cream); }
+  .faq-container { max-width: 800px; margin: 0 auto; }
+  .faq-item { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; margin-bottom: 16px; overflow: hidden; transition: all 0.3s; }
+  .faq-item:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(184,147,90,0.1); }
+  .faq-question { padding: 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--white); font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--navy); transition: all 0.3s; }
+  .faq-question:hover { background: var(--cream); color: var(--gold); }
+  .faq-toggle { display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; color: var(--gold); font-size: 20px; transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
+  .faq-item.active .faq-toggle { transform: rotate(180deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; background: var(--cream); }
+  .faq-item.active .faq-answer { max-height: 500px; padding: 0 24px 24px; }
+  .faq-answer-text { font-size: 14px; line-height: 1.8; color: var(--text-mid); }
+  .faq-answer-list { list-style: none; margin-top: 12px; }
+  .faq-answer-list li { padding-left: 20px; margin-bottom: 8px; position: relative; }
+  .faq-answer-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 600; }
+
+  /* ── PAYMENT OPTIONS ── */
+  #payments { padding: 60px 10vw; background: var(--navy); text-align: center; }
+  .payment-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--white); margin-bottom: 24px; }
+  .payment-options { display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+  .payment-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(184,147,90,0.3); border-radius: 8px; padding: 16px 24px; display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+  .payment-badge:hover { background: rgba(184,147,90,0.15); border-color: var(--gold-light); transform: translateY(-2px); }
+  .payment-icon { font-size: 24px; }
+  .payment-text { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 400; }
+  .payment-badge:hover .payment-text { color: var(--gold-light); }
+
+  /* ── GALLERY CAROUSEL ── */
+  #gallery-carousel { padding: 120px 10vw; background: var(--off-white); position: relative; border-bottom: 1px solid rgba(184,147,90,0.15); }
+  .gallery-slider-container { max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid rgba(184,147,90,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.08); background: var(--white); }
+  .gallery-slider { position: relative; height: 500px; width: 100%; overflow: hidden; }
+  .gallery-slide-item { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; flex-direction: column; justify-content: flex-end; }
+  .gallery-slide-item.active { opacity: 1; }
+  .gallery-slide-item img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-slide-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(13,27,42,0.85) 0%, rgba(13,27,42,0) 100%); color: var(--white); padding: 32px 40px; font-size: 15px; font-weight: 300; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; }
+  .gallery-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border: none; font-size: 18px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; color: var(--navy); border: 1px solid rgba(184,147,90,0.2); transition: all 0.3s; }
+  .gallery-control:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .gallery-control.prev { left: 24px; }
+  .gallery-control.next { right: 24px; }
+  .gallery-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
+  .gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; }
+  .gallery-dot.active { background: var(--gold); transform: scale(1.3); }
+
   /* ── CONTACT ── */
   #contact { padding: 120px 10vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .contact-info { }
@@ -222,68 +312,6 @@
   .map-strip-link { background: var(--gold); color: white; padding: 14px 36px; text-decoration: none; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 2px; white-space: nowrap; transition: background 0.3s; }
   .map-strip-link:hover { background: var(--gold-light); }
 
-  /* ── TREATMENT TIMELINE ── */
-  #timeline { padding: 140px 10vw; background: linear-gradient(135deg, var(--white) 0%, rgba(245,237,216,0.4) 100%); position: relative; overflow: hidden; }
-  #timeline::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(184,147,90,0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-  #timeline::after { content: ''; position: absolute; bottom: 0; left: 0; width: 250px; height: 250px; background: radial-gradient(circle, rgba(42,107,107,0.05) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-  .timeline-header { text-align: center; margin-bottom: 80px; position: relative; z-index: 1; }
-  .timeline-container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
-  .timeline-line { position: absolute; top: 80px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%); transform: translateY(-50%); box-shadow: 0 2px 8px rgba(184,147,90,0.2); }
-  .timeline-steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px; position: relative; z-index: 2; }
-  .timeline-step { text-align: center; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-  .timeline-step:hover { transform: translateY(-12px); }
-  .timeline-dot { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--white) 0%, rgba(255,255,255,0.95) 100%); border: 4px solid var(--gold); margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; font-size: 32px; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 12px 32px rgba(184,147,90,0.15), inset 0 1px 2px rgba(255,255,255,0.8); position: relative; }
-  .timeline-step:hover .timeline-dot { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); transform: scale(1.15) rotateY(360deg); box-shadow: 0 20px 48px rgba(184,147,90,0.3), inset 0 1px 2px rgba(255,255,255,0.8); border-color: var(--gold-light); }
-  .timeline-dot::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--gold); opacity: 0; animation: pulse-ring 1.5s infinite; }
-  @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
-  .timeline-label { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--navy); margin-bottom: 12px; letter-spacing: 0.02em; }
-  .timeline-desc { font-size: 13px; color: var(--text-mid); line-height: 1.8; letter-spacing: 0.03em; font-weight: 300; }
-  .timeline-step.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .timeline-step.fade-up.visible { opacity: 1; transform: translateY(0); }
-  
-  /* ── FAQ SECTION ── */
-  #faqs { padding: 120px 10vw; background: var(--cream); }
-  .faq-container { max-width: 800px; margin: 0 auto; }
-  .faq-item { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; margin-bottom: 16px; overflow: hidden; transition: all 0.3s; }
-  .faq-item:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(184,147,90,0.1); }
-  .faq-question { padding: 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--white); font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--navy); transition: all 0.3s; }
-  .faq-question:hover { background: var(--cream); color: var(--gold); }
-  .faq-toggle { display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; color: var(--gold); font-size: 20px; transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
-  .faq-item.active .faq-toggle { transform: rotate(180deg); }
-  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; background: var(--cream); }
-  .faq-item.active .faq-answer { max-height: 500px; padding: 0 24px 24px; }
-  .faq-answer-text { font-size: 14px; line-height: 1.8; color: var(--text-mid); }
-  .faq-answer-list { list-style: none; margin-top: 12px; }
-  .faq-answer-list li { padding-left: 20px; margin-bottom: 8px; position: relative; }
-  .faq-answer-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 600; }
-  
-  /* ── PAYMENT OPTIONS ── */
-  #payments { padding: 60px 10vw; background: var(--navy); text-align: center; }
-  .payment-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--white); margin-bottom: 24px; }
-  .payment-options { display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
-  .payment-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(184,147,90,0.3); border-radius: 8px; padding: 16px 24px; display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
-  .payment-badge:hover { background: rgba(184,147,90,0.15); border-color: var(--gold-light); transform: translateY(-2px); }
-  .payment-icon { font-size: 24px; }
-  .payment-text { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 400; }
-  .payment-badge:hover .payment-text { color: var(--gold-light); }
-
-  /* ── ROTATING IMAGE FRAME ── */
-  #image-carousel { padding: 80px 10vw; background: var(--white); position: relative; }
-  .carousel-container { max-width: 1000px; margin: 0 auto; }
-  .carousel-header { text-align: center; margin-bottom: 48px; }
-  .carousel-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--navy); margin-bottom: 12px; }
-  .carousel-frame { position: relative; width: 100%; max-width: 800px; margin: 0 auto; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--cream); border: 2px solid rgba(184,147,90,0.2); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
-  .carousel-slide-frame { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; align-items: center; justify-content: center; }
-  .carousel-slide-frame.active { opacity: 1; }
-  .carousel-slide-frame img { width: 100%; height: 100%; object-fit: cover; }
-  .carousel-controls { display: flex; justify-content: center; gap: 24px; margin-top: 32px; align-items: center; }
-  .carousel-btn { background: var(--navy); color: var(--white); border: 1px solid var(--navy); padding: 10px 24px; border-radius: 2px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: 'Jost', sans-serif; font-weight: 400; }
-  .carousel-btn:hover { background: var(--gold); border-color: var(--gold); }
-  .carousel-indicators { display: flex; gap: 8px; }
-  .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(184,147,90,0.3); cursor: pointer; transition: all 0.3s; border: 1px solid rgba(184,147,90,0.2); }
-  .carousel-dot.active { background: var(--gold); transform: scale(1.2); border-color: var(--gold); }
-  .carousel-dot:hover { background: var(--gold-light); }
-
   /* ── FOOTER ── */
   footer { background: #080E14; padding: 60px 10vw 32px; }
   .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
@@ -296,38 +324,45 @@
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(255,255,255,0.2); flex-wrap: wrap; gap: 12px; }
   .footer-bottom a { color: var(--gold); text-decoration: none; }
 
+  /* ── SCROLL TOP ── */
+  #scroll-top { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 90; opacity: 0; transition: opacity 0.3s, background 0.3s, transform 0.3s; cursor: pointer; border: none; }
+  #scroll-top.show { opacity: 1; }
+  #scroll-top:hover { background: var(--gold); transform: translateY(-3px); }
+  #scroll-top svg { color: white; width: 18px; height: 18px; stroke: white; stroke-width: 2; fill: none; }
 
-
-  /* ── GALLERY CAROUSEL ── */
-  #gallery-carousel { padding: 120px 10vw; background: var(--off-white); position: relative; border-bottom: 1px solid rgba(184,147,90,0.15); }
-  .gallery-slider-container { max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid rgba(184,147,90,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.08); background: var(--white); }
-  .gallery-slider { position: relative; height: 500px; width: 100%; overflow: hidden; }
-  .gallery-slide-item { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; flex-direction: column; justify-content: flex-end; }
-  .gallery-slide-item.active { opacity: 1; }
-  .gallery-slide-item img { width: 100%; height: 100%; object-fit: cover; }
-  .gallery-slide-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(13,27,42,0.85) 0%, rgba(13,27,42,0) 100%); color: var(--white); padding: 32px 40px; font-size: 15px; font-weight: 300; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; }
-  .gallery-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border: none; font-size: 18px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; color: var(--navy); border: 1px solid rgba(184,147,90,0.2); transition: all 0.3s; }
-  .gallery-control:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
-  .gallery-control.prev { left: 24px; }
-  .gallery-control.next { right: 24px; }
-  .gallery-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
-  .gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; }
-  .gallery-dot.active { background: var(--gold); transform: scale(1.3); }
+  /* ── FLOATING ACTION BUTTONS ── */
+  .fab-stack { position: fixed; bottom: 28px; left: 28px; z-index: 200; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .fab-btn { position: relative; display: flex; align-items: center; gap: 0; text-decoration: none; border-radius: 50px; overflow: visible; }
+  .fab-circle { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 6px 24px rgba(0,0,0,0.22); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; }
+  .fab-btn:hover .fab-circle { transform: scale(1.12); }
+  .fab-whatsapp .fab-circle { background: #25D366; }
+  .fab-call .fab-circle { background: var(--teal); }
+  .fab-circle svg { width: 24px; height: 24px; fill: white; }
+  .fab-label { position: absolute; left: 62px; background: rgba(10,20,30,0.88); color: white; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 4px; white-space: nowrap; opacity: 0; transform: translateX(-6px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; backdrop-filter: blur(8px); }
+  .fab-label::before { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%); border: 5px solid transparent; border-right-color: rgba(10,20,30,0.88); border-left: 0; }
+  .fab-btn:hover .fab-label { opacity: 1; transform: translateX(0); }
+  /* Pulse ring */
+  .fab-circle::after { content: ''; position: absolute; inset: 0; border-radius: 50%; animation: fab-pulse 2.2s ease-out infinite; }
+  .fab-whatsapp .fab-circle::after { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); }
+  .fab-call .fab-circle::after { box-shadow: 0 0 0 0 rgba(42,107,107,0.55); }
+  @keyframes fab-pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); } 70% { box-shadow: 0 0 0 14px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+  .fab-call .fab-circle::after { animation-name: fab-pulse-call; }
+  @keyframes fab-pulse-call { 0% { box-shadow: 0 0 0 0 rgba(42,107,107,0.55); } 70% { box-shadow: 0 0 0 14px rgba(42,107,107,0); } 100% { box-shadow: 0 0 0 0 rgba(42,107,107,0); } }
+  /* Entry animation */
+  .fab-stack { animation: fab-enter 0.7s 1s cubic-bezier(0.34,1.56,0.64,1) both; }
+  @keyframes fab-enter { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
   /* ── ANIMATIONS ── */
   .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-  /* ── SCROLL TOP ── */
-  #scroll-top { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 90; opacity: 0; transition: opacity 0.3s; cursor: pointer; border: none; }
-  #scroll-top.show { opacity: 1; }
-  #scroll-top svg { color: white; width: 18px; height: 18px; stroke: white; stroke-width: 2; fill: none; }
-
   @media (max-width: 900px) {
     #hero, #about, #contact { grid-template-columns: 1fr; }
     .hero-right { min-height: 320px; display: none; }
     .hero-left { padding: 140px 6vw 80px; }
-    .services-grid, .tools-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; gap: 16px; }
+    .service-card-wrap { height: 320px; }
+    .tools-grid, .reviews-grid { grid-template-columns: 1fr; }
     nav { padding: 0 4vw; }
     .nav-links { display: none; }
     #about, #contact { padding: 80px 6vw; }
@@ -344,6 +379,8 @@
     .gallery-control.prev { left: 12px; }
     .gallery-control.next { right: 12px; }
     .payment-options { flex-direction: column; gap: 16px; }
+    .back-meta { gap: 8px; }
+    .back-tag { font-size: 9px; }
   }
 </style>
 </head>
@@ -435,70 +472,7 @@
   </div>
 </section>
 
-<!-- Rotating Image Frame -->
-<section id="image-carousel">
-  <div class="carousel-container">
-    <div class="carousel-header">
-      <h2 class="carousel-title">Our Clinic & Treatments</h2>
-    </div>
-    <div class="carousel-frame">
-      <div class="carousel-slide-frame active">
-        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80" alt="Modern dental clinic treatment room">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1595502124338-950db27ea1c7?auto=format&fit=crop&w=1200&q=80" alt="Healthy confident smile">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1200&q=80" alt="Professional dentist during checkup">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=1200&q=80" alt="Advanced 3D dental tooth model">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80" alt="Beautiful white teeth smile">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80" alt="Expert dental consultation">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1447482012126-fd97f294de8d?auto=format&fit=crop&w=1200&q=80" alt="Sterilized high-precision dental tools">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80" alt="Happy male patient smile">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Clean modern clinic office reception">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=1200&q=80" alt="Morning dental health routine">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80" alt="Advanced digital diagnostic scan">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=1200&q=80" alt="Happy healthy family smiles">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1464998857633-50e59fbf2fe6?auto=format&fit=crop&w=1200&q=80" alt="Comfortable pediatric dental checkup">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80" alt="Cosmetic dentistry veneer design">
-      </div>
-      <div class="carousel-slide-frame">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80" alt="Patient showing teeth clinic">
-      </div>
-    </div>
-    <div class="carousel-controls">
-      <button class="carousel-btn" onclick="moveCarousel(-1)">← Previous</button>
-      <div class="carousel-indicators" id="carousel-indicators">
-        <!-- Dots generated by JavaScript -->
-      </div>
-      <button class="carousel-btn" onclick="moveCarousel(1)">Next →</button>
-    </div>
-  </div>
-</section>
-
-<!-- Marquee -->
+<!-- Marquee (Text) -->
 <div class="marquee-bar">
   <div class="marquee-track">
     <div class="marquee-item">Root Canal Treatment <span>✦</span></div>
@@ -519,6 +493,54 @@
     <div class="marquee-item">Emergency Dental Care <span>✦</span></div>
   </div>
 </div>
+
+<!-- Image Marquee (Moving Frame of 20 Curated Images) -->
+<section class="image-marquee-bar">
+  <div class="image-marquee-track">
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80" alt="Modern dental treatment room"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80" alt="Professional dentist checking patient teeth"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&q=80" alt="Expert dental consultation with patient"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=600&q=80" alt="Sterilized dental precision tools"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=600&q=80" alt="Advanced 3D digital dental tooth scan"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Modern, clean clinic waiting area"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80" alt="Specialist dentist consulting patient face-to-face"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" alt="Advanced high-tech dental diagnostics screen"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="Doctor reviewing digital diagnostic scan"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1513417037673-c0322c36829e?auto=format&fit=crop&w=600&q=80" alt="Precision endodontic dental equipment"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1447482012126-fd97f294de8d?auto=format&fit=crop&w=600&q=80" alt="Sanitized clinical dental instruments"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80" alt="Happy family showing healthy bright smiles"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80" alt="Close-up of a perfect white smile"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1595502124338-950db27ea1c7?auto=format&fit=crop&w=600&q=80" alt="Radiant smile after whitening treatment"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Smiling male patient after treatment"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="Confident healthy smile closeup"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1464998857633-50e59fbf2fe6?auto=format&fit=crop&w=600&q=80" alt="Happy pediatric patient smiling"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Orthodontics and modern braces setup"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="Senior patient smiling and laughing"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Happy patient with healthy teeth"></div>
+
+    <!-- Duplicate 20 Images for Seamless Infinite Loop -->
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80" alt="Modern dental treatment room"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80" alt="Professional dentist checking patient teeth"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&q=80" alt="Expert dental consultation with patient"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=600&q=80" alt="Sterilized dental precision tools"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=600&q=80" alt="Advanced 3D digital dental tooth scan"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Modern, clean clinic waiting area"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80" alt="Specialist dentist consulting patient face-to-face"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" alt="Advanced high-tech dental diagnostics screen"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="Doctor reviewing digital diagnostic scan"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1513417037673-c0322c36829e?auto=format&fit=crop&w=600&q=80" alt="Precision endodontic dental equipment"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1447482012126-fd97f294de8d?auto=format&fit=crop&w=600&q=80" alt="Sanitized clinical dental instruments"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80" alt="Happy family showing healthy bright smiles"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80" alt="Close-up of a perfect white smile"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1595502124338-950db27ea1c7?auto=format&fit=crop&w=600&q=80" alt="Radiant smile after whitening treatment"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Smiling male patient after treatment"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="Confident healthy smile closeup"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1464998857633-50e59fbf2fe6?auto=format&fit=crop&w=600&q=80" alt="Happy pediatric patient smiling"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Orthodontics and modern braces setup"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="Senior patient smiling and laughing"></div>
+    <div class="image-marquee-item"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Happy patient with healthy teeth"></div>
+  </div>
+</section>
 
 <!-- About -->
 <section id="about">
@@ -622,144 +644,225 @@
     <span class="section-label">What We Offer</span>
     <h2 class="section-h2">Treatments for Every <em>Smile</em></h2>
   </div>
+  <p class="services-hint">Click any card to discover more</p>
   <div class="services-grid fade-up">
-    <div class="service-card" onclick="flipCard(this)">
-      <div class="service-card-inner">
+
+    <!-- Card 1: Root Canal -->
+    <div class="service-card-wrap">
+      <div class="service-card" onclick="this.classList.toggle('flipped')">
         <div class="service-card-front">
           <span class="service-num">01</span>
           <span class="service-icon">🦷</span>
           <h3 class="service-name">Root Canal Treatment</h3>
           <p class="service-desc">Single-visit precision endodontics. Painless, efficient, and performed by a Gold Medalist RCT specialist.</p>
+          <div class="service-flip-hint">
+            <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="12 8 12 12 14 14"/></svg>
+            Tap to learn more
+          </div>
         </div>
         <div class="service-card-back">
-          <h3 class="service-back-title">Root Canal Treatment</h3>
-          <p class="service-back-content">Our specialist endodontic treatment saves teeth that would otherwise be lost to infection or decay.</p>
-          <ul class="service-back-list">
-            <li>Advanced rotary instrumentation</li>
-            <li>Single-visit treatment available</li>
-            <li>Painless anesthesia techniques</li>
-            <li>99%+ success rate</li>
-            <li>Saves natural tooth structure</li>
+          <div class="back-header">
+            <span class="back-icon">🦷</span>
+            <div class="back-title">Root Canal Treatment</div>
+          </div>
+          <div class="back-meta">
+            <span class="back-tag">⏱ 60–90 min</span>
+            <span class="back-tag">✅ Single Visit</span>
+            <span class="back-tag">💉 Painless</span>
+          </div>
+          <ul class="back-benefits">
+            <li>Removes infected pulp tissue with microscopic precision</li>
+            <li>Eliminates severe toothache and stops infection spread</li>
+            <li>Tooth is restored with a crown for long-term durability</li>
+            <li>Performed under advanced local anaesthesia — no pain</li>
+            <li>Success rate exceeding 95% in experienced hands</li>
           </ul>
-          <div class="service-back-cta">Click to know more →</div>
+          <a href="#contact" class="back-cta">Book RCT Consultation</a>
+          <p class="back-close-hint">Tap again to close</p>
         </div>
       </div>
     </div>
 
-    <div class="service-card" onclick="flipCard(this)">
-      <div class="service-card-inner">
+    <!-- Card 2: Dental Implants -->
+    <div class="service-card-wrap">
+      <div class="service-card" onclick="this.classList.toggle('flipped')">
         <div class="service-card-front">
           <span class="service-num">02</span>
           <span class="service-icon">🔩</span>
           <h3 class="service-name">Dental Implants</h3>
           <p class="service-desc">Life-like titanium implants that look, feel, and function like natural teeth — a permanent smile solution.</p>
+          <div class="service-flip-hint">
+            <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="12 8 12 12 14 14"/></svg>
+            Tap to learn more
+          </div>
         </div>
         <div class="service-card-back">
-          <h3 class="service-back-title">Dental Implants</h3>
-          <p class="service-back-content">Permanent tooth replacement with 25+ year lifespan and natural aesthetics.</p>
-          <ul class="service-back-list">
-            <li>Titanium biocompatible structure</li>
-            <li>Ceramic crown restoration</li>
-            <li>Bone preservation technology</li>
-            <li>Immediate or delayed placement</li>
-            <li>15+ years expert experience</li>
+          <div class="back-header">
+            <span class="back-icon">🔩</span>
+            <div class="back-title">Dental Implants</div>
+          </div>
+          <div class="back-meta">
+            <span class="back-tag">🏆 Permanent</span>
+            <span class="back-tag">🦴 Bone-Fused</span>
+            <span class="back-tag">✨ Natural Look</span>
+          </div>
+          <ul class="back-benefits">
+            <li>Titanium root fused directly into the jawbone</li>
+            <li>Prevents bone loss that occurs after tooth extraction</li>
+            <li>Looks, feels and functions exactly like a natural tooth</li>
+            <li>Lasts 15–25+ years with proper oral hygiene</li>
+            <li>No adhesive, no removal — completely fixed in place</li>
           </ul>
-          <div class="service-back-cta">Click to know more →</div>
+          <a href="#contact" class="back-cta">Book Implant Consultation</a>
+          <p class="back-close-hint">Tap again to close</p>
         </div>
       </div>
     </div>
 
-    <div class="service-card" onclick="flipCard(this)">
-      <div class="service-card-inner">
+    <!-- Card 3: Teeth Whitening -->
+    <div class="service-card-wrap">
+      <div class="service-card" onclick="this.classList.toggle('flipped')">
         <div class="service-card-front">
           <span class="service-num">03</span>
           <span class="service-icon">✨</span>
           <h3 class="service-name">Teeth Whitening</h3>
           <p class="service-desc">Professional-grade whitening treatments for a brilliantly bright smile — up to 8 shades lighter in one visit.</p>
+          <div class="service-flip-hint">
+            <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="12 8 12 12 14 14"/></svg>
+            Tap to learn more
+          </div>
         </div>
         <div class="service-card-back">
-          <h3 class="service-back-title">Teeth Whitening</h3>
-          <p class="service-back-content">Safe, effective professional whitening with long-lasting results.</p>
-          <ul class="service-back-list">
-            <li>Up to 8 shades lighter per visit</li>
-            <li>Professional-grade treatment</li>
-            <li>Sensitivity management included</li>
-            <li>Home maintenance kit provided</li>
-            <li>Results last 6-12 months</li>
+          <div class="back-header">
+            <span class="back-icon">✨</span>
+            <div class="back-title">Teeth Whitening</div>
+          </div>
+          <div class="back-meta">
+            <span class="back-tag">⏱ 45 min</span>
+            <span class="back-tag">🌟 8 Shades+</span>
+            <span class="back-tag">🦷 Safe</span>
+          </div>
+          <ul class="back-benefits">
+            <li>Clinical-grade hydrogen peroxide gel for deep whitening</li>
+            <li>Safely removes coffee, tea, tobacco and wine stains</li>
+            <li>Results last 12–24 months with proper maintenance</li>
+            <li>Gel-tray home maintenance kit included after treatment</li>
+            <li>Completely non-invasive with zero enamel damage</li>
           </ul>
-          <div class="service-back-cta">Click to know more →</div>
+          <a href="#contact" class="back-cta">Book Whitening Session</a>
+          <p class="back-close-hint">Tap again to close</p>
         </div>
       </div>
     </div>
 
-    <div class="service-card" onclick="flipCard(this)">
-      <div class="service-card-inner">
+    <!-- Card 4: Crowns & Bridges -->
+    <div class="service-card-wrap">
+      <div class="service-card" onclick="this.classList.toggle('flipped')">
         <div class="service-card-front">
           <span class="service-num">04</span>
           <span class="service-icon">👑</span>
-          <h3 class="service-name">Crowns & Bridges</h3>
+          <h3 class="service-name">Crowns &amp; Bridges</h3>
           <p class="service-desc">Ceramic and zirconia restorations crafted to perfection — restoring strength and natural aesthetics seamlessly.</p>
+          <div class="service-flip-hint">
+            <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="12 8 12 12 14 14"/></svg>
+            Tap to learn more
+          </div>
         </div>
         <div class="service-card-back">
-          <h3 class="service-back-title">Crowns & Bridges</h3>
-          <p class="service-back-content">Durable, natural-looking restorations that restore function and appearance.</p>
-          <ul class="service-back-list">
-            <li>Full ceramic and zirconia options</li>
-            <li>CAD/CAM same-day crowns available</li>
-            <li>Natural shade and contour matching</li>
-            <li>10-15 year durability</li>
-            <li>Bridge and implant supported</li>
+          <div class="back-header">
+            <span class="back-icon">👑</span>
+            <div class="back-title">Crowns &amp; Bridges</div>
+          </div>
+          <div class="back-meta">
+            <span class="back-tag">🔬 Zirconia</span>
+            <span class="back-tag">💪 Durable</span>
+            <span class="back-tag">🎨 Custom Shade</span>
+          </div>
+          <ul class="back-benefits">
+            <li>CAD/CAM precision milled zirconia or PFM crowns</li>
+            <li>Matched to your natural tooth colour — invisible restoration</li>
+            <li>Bridges replace 1–3 missing teeth without implant surgery</li>
+            <li>Protects cracked, broken or root canal treated teeth</li>
+            <li>10–15 year lifespan with regular dental care visits</li>
           </ul>
-          <div class="service-back-cta">Click to know more →</div>
+          <a href="#contact" class="back-cta">Book Crown Consultation</a>
+          <p class="back-close-hint">Tap again to close</p>
         </div>
       </div>
     </div>
 
-    <div class="service-card" onclick="flipCard(this)">
-      <div class="service-card-inner">
+    <!-- Card 5: Smile Makeover -->
+    <div class="service-card-wrap">
+      <div class="service-card" onclick="this.classList.toggle('flipped')">
         <div class="service-card-front">
           <span class="service-num">05</span>
           <span class="service-icon">😁</span>
           <h3 class="service-name">Smile Makeover</h3>
           <p class="service-desc">Comprehensive cosmetic treatment plans — veneers, bonding, contouring — designed around your unique facial features.</p>
+          <div class="service-flip-hint">
+            <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="12 8 12 12 14 14"/></svg>
+            Tap to learn more
+          </div>
         </div>
         <div class="service-card-back">
-          <h3 class="service-back-title">Smile Makeover</h3>
-          <p class="service-back-content">Complete smile transformation combining multiple cosmetic treatments.</p>
-          <ul class="service-back-list">
-            <li>Porcelain veneers & bonding</li>
-            <li>Gum contouring & shaping</li>
-            <li>Teeth alignment assessment</li>
-            <li>Customized treatment plan</li>
-            <li>Natural-looking aesthetic results</li>
+          <div class="back-header">
+            <span class="back-icon">😁</span>
+            <div class="back-title">Smile Makeover</div>
+          </div>
+          <div class="back-meta">
+            <span class="back-tag">🎭 Veneers</span>
+            <span class="back-tag">🖌 Bonding</span>
+            <span class="back-tag">✂ Contouring</span>
+          </div>
+          <ul class="back-benefits">
+            <li>Porcelain veneers for chips, gaps and discolouration</li>
+            <li>Composite bonding — quick and reversible shape correction</li>
+            <li>Gum contouring for a balanced, symmetrical smile line</li>
+            <li>Full digital smile preview before any treatment begins</li>
+            <li>Combines multiple procedures for a complete transformation</li>
           </ul>
-          <div class="service-back-cta">Click to know more →</div>
+          <a href="#contact" class="back-cta">Get Smile Analysis</a>
+          <p class="back-close-hint">Tap again to close</p>
         </div>
       </div>
     </div>
 
-    <div class="service-card" onclick="flipCard(this)">
-      <div class="service-card-inner">
+    <!-- Card 6: Pediatric Dentistry -->
+    <div class="service-card-wrap">
+      <div class="service-card" onclick="this.classList.toggle('flipped')">
         <div class="service-card-front">
           <span class="service-num">06</span>
           <span class="service-icon">🧒</span>
           <h3 class="service-name">Pediatric Dentistry</h3>
           <p class="service-desc">Gentle, child-friendly dental care in a warm environment — building healthy habits from the very first visit.</p>
+          <div class="service-flip-hint">
+            <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="12 8 12 12 14 14"/></svg>
+            Tap to learn more
+          </div>
         </div>
         <div class="service-card-back">
-          <h3 class="service-back-title">Pediatric Dentistry</h3>
-          <p class="service-back-content">Specialized care for children in a comfortable, welcoming environment.</p>
-          <ul class="service-back-list">
-            <li>Child-friendly approach & language</li>
-            <li>Preventive care focus</li>
-            <li>Sealant & fluoride applications</li>
-            <li>Behavior guidance techniques</li>
-            <li>Early orthodontic assessment</li>
+          <div class="back-header">
+            <span class="back-icon">🧒</span>
+            <div class="back-title">Pediatric Dentistry</div>
+          </div>
+          <div class="back-meta">
+            <span class="back-tag">👶 Age 2+</span>
+            <span class="back-tag">🎈 Child-Friendly</span>
+            <span class="back-tag">😊 Anxiety-Free</span>
+          </div>
+          <ul class="back-benefits">
+            <li>Gentle check-ups and cleaning starting from age 2</li>
+            <li>Pit &amp; fissure sealants to prevent early childhood cavities</li>
+            <li>Fluoride treatments for strong enamel development</li>
+            <li>Child-sized instruments and calm, positive environment</li>
+            <li>Educates children on proper brushing and diet habits</li>
           </ul>
-          <div class="service-back-cta">Click to know more →</div>
+          <a href="#contact" class="back-cta">Book Child's Appointment</a>
+          <p class="back-close-hint">Tap again to close</p>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -847,11 +950,11 @@
       </div>
       <div class="tool-body">
         <div class="checklist">
-          <div class="check-item"><input type="checkbox" id="g1" onchange="calcGum()"> <label for="g1">Gums bleed when brushing</label></div>
-          <div class="check-item"><input type="checkbox" id="g2" onchange="calcGum()"> <label for="g2">Persistent bad breath</label></div>
-          <div class="check-item"><input type="checkbox" id="g3" onchange="calcGum()"> <label for="g3">Gums look red or swollen</label></div>
-          <div class="check-item"><input type="checkbox" id="g4" onchange="calcGum()"> <label for="g4">Teeth feel loose or shifting</label></div>
-          <div class="check-item"><input type="checkbox" id="g5" onchange="calcGum()"> <label for="g5">Receding gum line visible</label></div>
+          <div class="check-item"><input type="checkbox" id="g1"> <label for="g1">Gums bleed when brushing</label></div>
+          <div class="check-item"><input type="checkbox" id="g2"> <label for="g2">Persistent bad breath</label></div>
+          <div class="check-item"><input type="checkbox" id="g3"> <label for="g3">Gums look red or swollen</label></div>
+          <div class="check-item"><input type="checkbox" id="g4"> <label for="g4">Teeth feel loose or shifting</label></div>
+          <div class="check-item"><input type="checkbox" id="g5"> <label for="g5">Receding gum line visible</label></div>
         </div>
         <div id="gum-result" class="tool-result green" style="margin-top:16px;">
           <div class="tool-result-num" id="gum-text">Healthy</div>
@@ -1252,18 +1355,40 @@
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
 </button>
 
+<!-- Floating WhatsApp & Call Buttons -->
+<div class="fab-stack">
+  <a class="fab-btn fab-whatsapp" href="https://wa.me/919904975842?text=Hello%20Dr.%20Rana%2C%20I%20would%20like%20to%20book%20a%20consultation." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <div class="fab-circle">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+    </div>
+    <span class="fab-label">Chat on WhatsApp</span>
+  </a>
+  <a class="fab-btn fab-call" href="tel:+919904975842" aria-label="Call the clinic">
+    <div class="fab-circle">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </div>
+    <span class="fab-label">Call +91 99049 75842</span>
+  </a>
+</div>
+
 <script>
 // ── CURSOR ──
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
-function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
-animRing();
-document.querySelectorAll('a,button,input,select,textarea,.service-card,.tool-card,.pain-dot').forEach(el => {
-  el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.6)'; ring.style.opacity = '0.3'; cursor.style.transform = 'translate(-50%,-50%) scale(0.6)'; });
-  el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.6'; cursor.style.transform = 'translate(-50%,-50%) scale(1)'; });
-});
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+  function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
+  animRing();
+  document.querySelectorAll('a,button,input,select,textarea,.service-card,.tool-card,.pain-dot,#symptom-sel,.check-item label,.check-item input,.faq-question').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.6)'; ring.style.opacity = '0.3'; cursor.style.transform = 'translate(-50%,-50%) scale(0.6)'; });
+    el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.6'; cursor.style.transform = 'translate(-50%,-50%) scale(1)'; });
+  });
+}
 
 // ── SCROLL REVEAL ──
 const obs = new IntersectionObserver((entries) => {
@@ -1299,7 +1424,6 @@ function calcOral() {
 document.getElementById('brush-slider').addEventListener('input', calcOral);
 document.getElementById('floss-slider').addEventListener('input', calcOral);
 document.getElementById('visit-slider').addEventListener('input', calcOral);
-calcOral();
 
 // ── TOOL 2: CAVITY RISK ──
 const cavityChecks = ['c1','c2','c3','c4','c5','c6'];
@@ -1337,6 +1461,7 @@ function toggleTimer() {
         document.getElementById('timer-zone').textContent = 'Great job!';
         document.getElementById('timer-btn').textContent = '↺ Restart';
         document.getElementById('timer-btn').onclick = resetTimer;
+        document.getElementById('seg-3').classList.add('done');
         return;
       }
       const m = Math.floor(timerSec / 60), s = timerSec % 60;
@@ -1360,8 +1485,9 @@ function resetTimer() {
 }
 
 // ── TOOL 4: GUM HEALTH ──
+const gumChecks = ['g1','g2','g3','g4','g5'];
 function calcGum() {
-  const checks = ['g1','g2','g3','g4','g5'].filter(id => document.getElementById(id).checked).length;
+  const checks = gumChecks.filter(id => document.getElementById(id).checked).length;
   const res = document.getElementById('gum-result');
   const txt = document.getElementById('gum-text');
   if (checks === 0) { res.className = 'tool-result green'; txt.textContent = 'Healthy'; }
@@ -1370,6 +1496,7 @@ function calcGum() {
   else if (checks <= 3) { res.className = 'tool-result red'; txt.textContent = 'See Dentist Soon'; }
   else { res.className = 'tool-result red'; txt.textContent = 'Urgent Attention Needed'; }
 }
+gumChecks.forEach(id => document.getElementById(id).addEventListener('change', calcGum));
 
 // ── TOOL 5: PAIN LOCATOR ──
 const painColors = ['#EDF7ED','#C8E6C9','#FFF9C4','#FFECB3','#FFE0B2','#FFCCBC','#FFAB91','#FF8A65','#EF5350','#E53935','#B71C1C'];
@@ -1437,44 +1564,6 @@ function showNextSlide() {
 }
 setInterval(showNextSlide, 4000);
 
-// ── ROTATING IMAGE CAROUSEL (15 IMAGES) ──
-let carouselIndex = 0;
-const carouselSlides = document.querySelectorAll('.carousel-slide-frame');
-const indicatorsContainer = document.getElementById('carousel-indicators');
-let carouselInterval;
-
-// Create indicator dots
-carouselSlides.forEach((_, idx) => {
-  const dot = document.createElement('div');
-  dot.className = 'carousel-dot' + (idx === 0 ? ' active' : '');
-  dot.onclick = () => moveCarousel(idx - carouselIndex);
-  indicatorsContainer.appendChild(dot);
-});
-
-function showCarouselSlide(n) {
-  if (carouselSlides.length === 0) return;
-  carouselSlides[carouselIndex].classList.remove('active');
-  document.querySelectorAll('.carousel-dot')[carouselIndex].classList.remove('active');
-  
-  carouselIndex = (n + carouselSlides.length) % carouselSlides.length;
-  
-  carouselSlides[carouselIndex].classList.add('active');
-  document.querySelectorAll('.carousel-dot')[carouselIndex].classList.add('active');
-}
-
-function moveCarousel(step) {
-  resetCarouselInterval();
-  showCarouselSlide(carouselIndex + step);
-}
-
-function resetCarouselInterval() {
-  clearInterval(carouselInterval);
-  carouselInterval = setInterval(() => moveCarousel(1), 5000);
-}
-
-// Auto-rotate carousel
-carouselInterval = setInterval(() => moveCarousel(1), 5000);
-
 // ── CLINIC GALLERY SLIDER (10 IMAGES) ──
 let galleryIndex = 0;
 const gallerySlides = document.querySelectorAll('.gallery-slide-item');
@@ -1507,11 +1596,6 @@ function resetGalleryInterval() {
   galleryInterval = setInterval(() => moveGallery(1), 5000);
 }
 
-// ── SERVICE CARD FLIP ──
-function flipCard(element) {
-  element.classList.toggle('flipped');
-}
-
 // ── FAQ TOGGLE ──
 function toggleFAQ(element) {
   const parent = element.closest('.faq-item');
@@ -1533,6 +1617,11 @@ document.querySelectorAll('.timeline-step.fade-up').forEach((el, idx) => {
   el.style.animationDelay = (idx * 100) + 'ms';
   observerTimeline.observe(el);
 });
+
+// ── INITIAL LOAD SYNC ──
+calcOral();
+calcCavity();
+calcGum();
 </script>
 </body>
 </html>
