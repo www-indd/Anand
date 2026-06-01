@@ -46,6 +46,10 @@
   .nav-links a:hover { color: var(--gold); }
   .nav-cta { background: var(--navy); color: var(--white) !important; padding: 10px 24px !important; border-radius: 2px; letter-spacing: 0.12em !important; }
   .nav-cta:hover { background: var(--gold) !important; color: var(--white) !important; }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; font-size: 24px; color: var(--navy); }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links.active { display: flex; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
 
   /* ── HERO ── */
   #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; background: var(--off-white); }
@@ -235,6 +239,28 @@
   .review-author { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 10px; }
   .review-author::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
 
+  /* ── BEFORE AFTER SLIDER ── */
+  #before-after { padding: 120px 10vw; background: var(--off-white); }
+  .before-after-container { max-width: 900px; margin: 0 auto; position: relative; }
+  .before-after-slider-wrap { position: relative; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 8px; overflow: hidden; background: white; border: 1px solid rgba(184,147,90,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+  .before-after-slider { position: relative; width: 100%; padding-bottom: 75%; height: 0; overflow: hidden; }
+  .before-after-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+  .before-after-img.before { z-index: 3; clip-path: polygon(0 0, var(--clip-position, 50%) 0, var(--clip-position, 50%) 100%, 0 100%); }
+  .before-after-label { position: absolute; top: 20px; z-index: 4; font-size: 12px; letter-spacing: 0.1em; font-weight: 600; text-transform: uppercase; background: rgba(0,0,0,0.5); color: white; padding: 6px 12px; border-radius: 3px; }
+  .before-label { left: 12px; }
+  .after-label { right: 12px; }
+  .before-after-handle { position: absolute; top: 0; left: 50%; width: 4px; height: 100%; background: var(--gold); transform: translateX(-50%); z-index: 5; cursor: col-resize; }
+  .before-after-handle::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; background: var(--gold); border-radius: 50%; cursor: grab; }
+  .before-after-handle::before:active { cursor: grabbing; }
+  .before-after-handle::after { content: '◀ ▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 16px; font-weight: bold; letter-spacing: -2px; }
+  .before-after-counter { text-align: center; margin-top: 16px; font-size: 12px; letter-spacing: 0.1em; color: var(--text-light); text-transform: uppercase; }
+  .before-after-nav { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+  .before-after-btn { background: var(--navy); color: white; border: none; padding: 10px 24px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 3px; cursor: pointer; transition: all 0.3s; }
+  .before-after-btn:hover { background: var(--gold); transform: translateY(-2px); }
+  .before-after-dots { display: flex; gap: 8px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+  .before-after-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(184,147,90,0.3); cursor: pointer; transition: all 0.3s; }
+  .before-after-dot.active { background: var(--gold); transform: scale(1.3); }
+
   /* ── FAQ SECTION ── */
   #faqs { padding: 120px 10vw; background: var(--cream); }
   .faq-container { max-width: 800px; margin: 0 auto; }
@@ -357,30 +383,219 @@
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 900px) {
-    #hero, #about, #contact { grid-template-columns: 1fr; }
-    .hero-right { min-height: 320px; display: none; }
-    .hero-left { padding: 140px 6vw 80px; }
-    .services-grid { grid-template-columns: 1fr; gap: 16px; }
-    .service-card-wrap { height: 320px; }
-    .tools-grid, .reviews-grid { grid-template-columns: 1fr; }
+    html { scroll-behavior: smooth; }
+    
+    /* ── NAV MOBILE ── */
     nav { padding: 0 4vw; }
-    .nav-links { display: none; }
-    #about, #contact { padding: 80px 6vw; }
+    .nav-toggle { display: block; }
+    .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; background: white; border-bottom: 1px solid rgba(184,147,90,0.15); flex-direction: column; padding: 20px 5vw; gap: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .nav-links.active { display: flex; }
+    .nav-links a { font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; color: var(--text-mid); text-decoration: none; transition: color 0.2s; padding: 12px 0; }
+    
+    /* ── HERO RESPONSIVE ── */
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 6vw 60px; }
+    .hero-h1 { font-size: clamp(32px, 7vw, 48px); }
+    .hero-stats { gap: 24px; }
+    
+    /* ── SECTIONS RESPONSIVE ── */
+    #about, #contact { grid-template-columns: 1fr; padding: 80px 6vw; }
     #services, #tools, #reviews { padding: 80px 6vw; }
     #timeline, #faqs, #payments { padding: 80px 6vw; }
-    .timeline-steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    
+    /* ── SERVICES GRID ── */
+    .services-grid { grid-template-columns: 1fr; gap: 16px; }
+    .service-card-wrap { height: 300px; }
+    
+    /* ── TOOLS GRID ── */
+    .tools-grid { grid-template-columns: 1fr; }
+    
+    /* ── REVIEWS GRID ── */
+    .reviews-grid { grid-template-columns: 1fr; }
+    
+    /* ── TIMELINE ── */
+    .timeline-steps { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .timeline-line { display: none; }
-    #map-strip { flex-direction: column; padding: 50px 6vw; text-align: center; }
-    #map-strip::before { background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 100%); }
+    .timeline-dot { width: 60px; height: 60px; font-size: 24px; }
+    
+    /* ── BEFORE AFTER ── */
+    .before-after-slider-wrap { max-width: 100%; }
+    
+    /* ── GALLERY ── */
     #gallery-carousel { padding: 80px 6vw; }
-    .gallery-slider { height: 320px; }
-    .gallery-slide-caption { padding: 20px 24px; font-size: 12px; }
+    .gallery-slider { height: 300px; }
+    .gallery-slide-caption { padding: 16px 20px; font-size: 11px; }
     .gallery-control { width: 36px; height: 36px; font-size: 14px; }
     .gallery-control.prev { left: 12px; }
     .gallery-control.next { right: 12px; }
-    .payment-options { flex-direction: column; gap: 16px; }
-    .back-meta { gap: 8px; }
-    .back-tag { font-size: 9px; }
+    
+    /* ── MAP STRIP ── */
+    #map-strip { flex-direction: column; padding: 50px 6vw; text-align: center; gap: 24px; }
+    .map-strip-bg { opacity: 0.4 !important; }
+    
+    /* ── PAYMENTS ── */
+    .payment-options { flex-direction: column; gap: 12px; }
+    .payment-badge { width: 100%; justify-content: center; }
+    
+    /* ── FOOTER ── */
+    .footer-top { flex-direction: column; gap: 24px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    
+    /* ── MARQUEE RESPONSIVE ── */
+    .image-marquee-bar { padding: 20px 0; }
+    .image-marquee-item { width: 200px; height: 130px; }
+  }
+
+  @media (max-width: 640px) {
+    html { font-size: 14px; }
+    body { font-size: 14px; }
+    
+    /* ── NAV MOBILE SMALL ── */
+    nav { height: 64px; padding: 0 4vw; }
+    .nav-logo-text { font-size: 14px; }
+    .nav-logo-icon { width: 32px; height: 32px; }
+    .nav-logo-text span { font-size: 8px; }
+    
+    /* ── HERO SMALL ── */
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 100px 4vw 40px; }
+    .hero-h1 { font-size: clamp(28px, 8vw, 40px); margin-bottom: 8px; line-height: 1.1; }
+    .hero-tag { font-size: 10px; margin-bottom: 16px; }
+    .hero-tag::before { width: 24px; }
+    .hero-sub { font-size: 12px; margin-bottom: 16px; }
+    .hero-desc { font-size: 14px; max-width: 100%; margin-bottom: 32px; line-height: 1.7; }
+    .hero-btns { gap: 12px; flex-direction: column; }
+    .btn-primary, .btn-outline { padding: 14px 32px; font-size: 11px; width: 100%; }
+    .hero-stats { gap: 20px; margin-top: 32px; padding-top: 32px; flex-wrap: wrap; }
+    .stat-num { font-size: 28px; }
+    .stat-label { font-size: 10px; }
+    
+    /* ── ABOUT SMALL ── */
+    #about { padding: 60px 4vw; gap: 40px; }
+    .about-h2 { font-size: clamp(24px, 6vw, 36px); margin-bottom: 20px; }
+    .about-body { font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
+    .about-cred { padding: 12px 16px; }
+    .about-cred-icon { font-size: 16px; }
+    .about-cred-text { font-size: 12px; }
+    .about-card-inner { padding: 32px 24px; }
+    .about-card h3 { font-size: 28px; }
+    .about-card-list li { font-size: 12px; gap: 10px; }
+    .about-card-list li::before { width: 16px; }
+    
+    /* ── MARQUEE SMALL ── */
+    .marquee-item { font-size: 10px; padding: 0 20px; }
+    .image-marquee-item { width: 160px; height: 110px; }
+    .image-marquee-item:hover { transform: translateY(-2px) scale(1.01); }
+    
+    /* ── SECTION HEADERS SMALL ── */
+    .section-h2 { font-size: clamp(24px, 6vw, 40px); }
+    .section-label { font-size: 10px; margin-bottom: 12px; }
+    
+    /* ── TIMELINE SMALL ── */
+    #timeline { padding: 60px 4vw; }
+    .timeline-header { margin-bottom: 40px; }
+    .timeline-steps { grid-template-columns: 1fr; gap: 24px; }
+    .timeline-dot { width: 48px; height: 48px; font-size: 20px; margin-bottom: 16px; }
+    .timeline-label { font-size: 18px; margin-bottom: 8px; }
+    .timeline-desc { font-size: 12px; }
+    
+    /* ── SERVICES SMALL ── */
+    #services { padding: 60px 4vw; }
+    .services-hint { font-size: 11px; margin-bottom: 24px; margin-top: -20px; }
+    .service-num { font-size: 48px; top: 16px; right: 16px; }
+    .service-icon { font-size: 28px; margin-bottom: 12px; }
+    .service-name { font-size: 20px; margin-bottom: 8px; }
+    .service-desc { font-size: 12px; line-height: 1.6; }
+    .service-flip-hint { font-size: 9px; margin-top: 16px; }
+    
+    /* ── TOOLS SMALL ── */
+    #tools { padding: 60px 4vw; }
+    .tools-intro p { font-size: 14px; line-height: 1.7; margin-bottom: 40px; }
+    .tool-header { padding: 20px 20px 16px; }
+    .tool-title { font-size: 18px; }
+    .tool-icon-wrap { width: 40px; height: 40px; font-size: 18px; }
+    .tool-body { padding: 16px 20px; }
+    .tool-label { font-size: 11px; }
+    .tool-val { font-size: 12px; }
+    .tool-result-num { font-size: 28px; }
+    .tool-result-label { font-size: 10px; }
+    
+    /* ── REVIEWS SMALL ── */
+    #reviews { padding: 60px 4vw; }
+    .reviews-grid { gap: 16px; }
+    .review-card { padding: 24px 20px; }
+    .review-text { font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+    .review-stars { font-size: 12px; margin-bottom: 12px; }
+    
+    /* ── BEFORE AFTER SMALL ── */
+    #before-after { padding: 60px 4vw; }
+    .before-after-label { font-size: 11px; padding: 4px 8px; top: 12px; }
+    .before-after-counter { font-size: 11px; margin-top: 12px; }
+    .before-after-nav { gap: 8px; margin-top: 16px; }
+    .before-after-btn { padding: 8px 16px; font-size: 11px; }
+    .before-after-dot { width: 8px; height: 8px; }
+    
+    /* ── FAQ SMALL ── */
+    #faqs { padding: 60px 4vw; }
+    .faq-container { max-width: 100%; }
+    .faq-question { padding: 16px; font-size: 15px; }
+    .faq-toggle { width: 20px; height: 20px; line-height: 20px; font-size: 16px; margin-left: 12px; }
+    .faq-item.active .faq-answer { max-height: 600px; padding: 0 16px 16px; }
+    
+    /* ── GALLERY SMALL ── */
+    #gallery-carousel { padding: 60px 4vw; }
+    .gallery-slider { height: 240px; }
+    .gallery-slide-caption { padding: 12px 16px; font-size: 10px; }
+    .gallery-control { width: 32px; height: 32px; font-size: 12px; }
+    
+    /* ── CONTACT SMALL ── */
+    #contact { padding: 60px 4vw; gap: 40px; }
+    .about-label { font-size: 10px; margin-bottom: 12px; }
+    .about-h2 { font-size: clamp(20px, 6vw, 32px); }
+    .contact-detail { margin-bottom: 20px; gap: 16px; }
+    .contact-icon { width: 40px; height: 40px; font-size: 18px; }
+    .contact-detail-text strong { font-size: 12px; }
+    .contact-detail-text p { font-size: 13px; }
+    .contact-form-wrap { padding: 32px 20px; }
+    .form-title { font-size: 24px; margin-bottom: 8px; }
+    .form-sub { font-size: 12px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { font-size: 10px; margin-bottom: 6px; }
+    .form-group input, .form-group textarea, .form-group select { padding: 10px 12px; font-size: 13px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .form-submit { padding: 14px; font-size: 11px; }
+    
+    /* ── MAP STRIP SMALL ── */
+    #map-strip { padding: 40px 4vw; gap: 20px; min-height: auto; }
+    .map-strip-text h3 { font-size: 20px; margin-bottom: 4px; }
+    .map-strip-text p { font-size: 12px; }
+    .map-strip-link { padding: 10px 20px; font-size: 11px; }
+    
+    /* ── PAYMENTS SMALL ── */
+    #payments { padding: 40px 4vw; }
+    .payment-title { font-size: 24px; margin-bottom: 16px; }
+    .payment-badge { padding: 12px 16px; gap: 10px; }
+    .payment-icon { font-size: 20px; }
+    .payment-text { font-size: 11px; }
+    
+    /* ── FOOTER SMALL ── */
+    footer { padding: 40px 4vw 20px; }
+    .footer-logo { font-size: 18px; }
+    .footer-logo span { font-size: 9px; margin-top: 2px; }
+    .footer-links { gap: 8px; }
+    .footer-links a { font-size: 12px; }
+    .footer-bottom { font-size: 10px; }
+    
+    /* ── FAB STACK SMALL ── */
+    .fab-stack { bottom: 20px; left: 20px; gap: 12px; }
+    .fab-circle { width: 48px; height: 48px; }
+    .fab-circle svg { width: 20px; height: 20px; }
+    .fab-label { font-size: 10px; padding: 5px 10px; }
+    
+    /* ── SCROLL TOP SMALL ── */
+    #scroll-top { bottom: 20px; right: 20px; width: 44px; height: 44px; }
+    #scroll-top svg { width: 16px; height: 16px; }
   }
 </style>
 </head>
@@ -403,7 +618,8 @@
       <span>& Implant Centre · Est. Surat</span>
     </div>
   </div>
-  <div class="nav-links">
+  <button class="nav-toggle" id="navToggle" onclick="toggleNav()">☰</button>
+  <div class="nav-links" id="navMenu">
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#tools">Health Tools</a>
@@ -1034,6 +1250,38 @@
   </div>
 </section>
 
+<!-- Before After Slider -->
+<section id="before-after">
+  <div class="section-header fade-up">
+    <span class="section-label">Transformation Gallery</span>
+    <h2 class="section-h2">Patient <em>Before & After</em></h2>
+  </div>
+  
+  <div class="before-after-container fade-up">
+    <div class="before-after-slider-wrap">
+      <div class="before-after-slider" id="baSlider">
+        <img class="before-after-img after" id="afterImg" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80" alt="After - Perfect smile">
+        <img class="before-after-img before" id="beforeImg" src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=600&q=80" alt="Before - Initial state">
+        <div class="before-label">BEFORE</div>
+        <div class="after-label">AFTER</div>
+        <div class="before-after-handle"></div>
+      </div>
+    </div>
+    
+    <div class="before-after-counter">
+      Image <span id="baCounter">1</span> of 10
+    </div>
+    
+    <div class="before-after-nav">
+      <button class="before-after-btn" onclick="prevBA()">← Previous</button>
+      <button class="before-after-btn" onclick="toggleAutoBA()">▶ Auto Play</button>
+      <button class="before-after-btn" onclick="nextBA()">Next →</button>
+    </div>
+    
+    <div class="before-after-dots" id="baDots"></div>
+  </div>
+</section>
+
 <!-- FAQs -->
 <section id="faqs">
   <div class="section-header fade-up">
@@ -1622,6 +1870,147 @@ document.querySelectorAll('.timeline-step.fade-up').forEach((el, idx) => {
 calcOral();
 calcCavity();
 calcGum();
+
+// ── MOBILE NAVIGATION ──
+function toggleNav() {
+  const menu = document.getElementById('navMenu');
+  menu.classList.toggle('active');
+}
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('#navMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navMenu').classList.remove('active');
+  });
+});
+
+// ── BEFORE AFTER SLIDER (10 IMAGES) ──
+const beforeAfterImages = [
+  {
+    before: 'https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80',
+    title: 'Digital Smile Transformation'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1595502124338-950db27ea1c7?auto=format&fit=crop&w=600&q=80',
+    title: 'Whitening Excellence'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&q=80',
+    title: 'Implant Restoration'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80',
+    title: 'Cosmetic Enhancement'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80',
+    title: 'Family Smile Care'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
+    title: 'Crown & Bridge Work'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1464998857633-50e59fbf2fe6?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
+    title: 'Pediatric Restoration'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80',
+    title: 'Orthodontic Alignment'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1447482012126-fd97f294de8d?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1513417037673-c0322c36829e?auto=format&fit=crop&w=600&q=80',
+    title: 'Root Canal Success'
+  },
+  {
+    before: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80',
+    title: 'Smile Makeover'
+  }
+];
+
+let currentBAIndex = 0;
+let baAutoPlay = false;
+let baInterval = null;
+
+function initBeforeAfter() {
+  // Create dots
+  const dotsContainer = document.getElementById('baDots');
+  beforeAfterImages.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'before-after-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => setBA(i);
+    dotsContainer.appendChild(dot);
+  });
+  
+  // Setup slider
+  const slider = document.getElementById('baSlider');
+  let isMouseDown = false;
+  
+  function updateClip(e) {
+    const rect = slider.getBoundingClientRect();
+    const x = e.clientX - rect.left || (e.touches ? e.touches[0].clientX - rect.left : rect.width / 2);
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    document.getElementById('beforeImg').style.setProperty('--clip-position', percent + '%');
+  }
+  
+  slider.addEventListener('mousedown', () => { isMouseDown = true; });
+  slider.addEventListener('touchstart', () => { isMouseDown = true; });
+  document.addEventListener('mouseup', () => { isMouseDown = false; });
+  document.addEventListener('touchend', () => { isMouseDown = false; });
+  slider.addEventListener('mousemove', (e) => { if (isMouseDown) updateClip(e); });
+  slider.addEventListener('touchmove', (e) => { if (isMouseDown) updateClip(e); });
+}
+
+function setBA(index) {
+  currentBAIndex = index;
+  const img = beforeAfterImages[index];
+  document.getElementById('beforeImg').src = img.before;
+  document.getElementById('afterImg').src = img.after;
+  document.getElementById('baCounter').textContent = index + 1;
+  
+  // Update dots
+  document.querySelectorAll('.before-after-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+  
+  // Reset clip
+  document.getElementById('beforeImg').style.setProperty('--clip-position', '50%');
+}
+
+function nextBA() {
+  setBA((currentBAIndex + 1) % beforeAfterImages.length);
+}
+
+function prevBA() {
+  setBA((currentBAIndex - 1 + beforeAfterImages.length) % beforeAfterImages.length);
+}
+
+function toggleAutoBA() {
+  if (baAutoPlay) {
+    clearInterval(baInterval);
+    baAutoPlay = false;
+    event.target.textContent = '▶ Auto Play';
+  } else {
+    baAutoPlay = true;
+    event.target.textContent = '⏸ Stop';
+    baInterval = setInterval(() => {
+      nextBA();
+    }, 3000);
+  }
+}
+
+initBeforeAfter();
+
 </script>
 </body>
 </html>
